@@ -1,0 +1,26 @@
+<div class="form-group row">
+    <div class="col-xl-3 col-lg-3 col-md-4 col-sm-4">
+        <label for="subtopic_name">Nummer</label>
+    </div>
+    <div class="col-xl-3 col-lg-3 col-md-6 col-sm-8">
+        <input type="text" id="subtopic_number" name="subtopic_number" required="required" value="{subtopic.subtopic_number}" placeholder="Nummer des Themengebiets" class="form-control"/>
+    </div>
+</div>
+<div class="form-group row">
+    <div class="col-xl-3 col-lg-3 col-md-4 col-sm-4">
+        <label for="subtopic_name">Gebiet</label>
+    </div>
+    <div class="col-xl-3 col-lg-3 col-md-6 col-sm-8">
+        <input type="text" id="subtopic_name" name="subtopic_name" required="required" value="{subtopic.subtopic_name}" placeholder="Bezeichnung des Themengebiets" class="form-control"/>
+    </div>
+</div>
+<div class="form-group row">
+    <div class="col-xl-3 col-lg-3 col-md-4 col-sm-4">
+        <label for="subtopic_topic_parent_id">Gehört zum Kapitel</label>
+    </div>
+    <div class="col-xl-4 col-lg-4 col-md-6 col-sm-8">
+        <select name="subtopic_topic_parent_id" id="subtopic_topic_parent_id" class="form-control selectpicker show-tick" data-live-search="true">
+            <f:render partial="Topic/Options" arguments="{selected_id:subtopic.subtopic_topic_parent_id, topics:topics}"/>
+        </select>
+    </div>
+</div>

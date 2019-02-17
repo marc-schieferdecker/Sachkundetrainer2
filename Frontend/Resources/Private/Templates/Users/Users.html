@@ -1,0 +1,81 @@
+{namespace c=LetsShoot\Sachkundetrainer\Frontend\ViewHelpers}
+
+<f:layout name="Loggedin"/>
+
+<f:section name="Main">
+    <nav class="navbar navbar-default searchform d-print-none d-none d-lg-table">
+        <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 pull-left">
+            <h1>Benutzerverwaltung</h1>
+        </div>
+        <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 pull-right">
+            <f:render partial="Searchform/Default" arguments="{search_ctrl:'Users', search_action:'Users', string:string}"/>
+        </div>
+    </nav>
+    <div class="container-fluid content">
+        <div class="row">
+            <div class="col-xl-12">
+                <f:format.raw>{error}</f:format.raw>
+
+                <ul class="nav nav-tabs" id="tabs" role="tablist">
+                    <li class="nav-item">
+                        <a class="nav-link active" id="liste-tab" data-toggle="tab" href="#liste" role="tab" aria-controls="liste" aria-expanded="true">Liste</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="neu-tab" data-toggle="tab" href="#neu" role="tab" aria-controls="neu">Neu</a>
+                    </li>
+                </ul>
+                <div class="tab-content" id="myTabContent">
+
+                    <div class="tab-pane show active" id="liste" role="tabpanel" aria-labelledby="liste-tab">
+                        <table class="table table-striped datatable" datatable-ordering="1" datatable-paging="0" datatable-order-column="0">
+                            <thead class="thead-inverse">
+                                <tr>
+                                    <th class="d-none d-md-table-cell">ID</th>
+                                    <th class="d-none d-md-table-cell">Name</th>
+                                    <th>E-Mail Adresse</th>
+                                    <th class="d-none d-md-table-cell">Berechtigung</th>
+                                    <th><i class="fa fa-pencil-square-o" aria-hidden="true"></i></th>
+                                </tr>
+                            </thead>
+                            <c:Isarray haystack="{users}">
+                                <f:for each="{users}" as="u">
+                                    <tr>
+                                        <td class="d-none d-md-table-cell">{u.user_id}</td>
+                                        <td class="d-none d-md-table-cell">{u.user_name}</td>
+                                        <td>{u.user_email}</td>
+                                        <td class="d-none d-md-table-cell">
+                                            <f:switch expression="{u.user_userlevel}">
+                                                <f:case value="10">Gast</f:case>
+                                                <f:case value="20">Benutzer</f:case>
+                                                <f:case value="30">Administrator</f:case>
+                                                <f:defaultCase>-</f:defaultCase>
+                                            </f:switch>
+                                        </td>
+                                        <td>
+                                            <a href="/Frontend/?ctrl=Users&action=Edit&id={u.user_id}"><i class="fa fa-pencil fa-lg" aria-hidden="true"></i></a>
+                                            <a href="/Frontend/?ctrl=Users&action=Delete&id={u.user_id}" class="confirm" confirmation-message="Diesen Datensatz wirklich löschen?"><i class="fa fa-trash fa-lg" aria-hidden="true"></i></a>
+                                        </td>
+                                    </tr>
+                                </f:for>
+                            </c:Isarray>
+                        </table>
+                    </div>
+
+                    <div class="tab-pane" id="neu" role="tabpanel" aria-labelledby="neu-tab">
+                        <form method="post" id="updateform" action="/Frontend/" enctype="multipart/form-data">
+                            <input type="hidden" name="ctrl" value="Users"/>
+                            <input type="hidden" name="action" value="Users"/>
+                            <input type="hidden" name="save" value="true"/>
+                            <div class="row submitrow">
+                                <div class="col text-right">
+                                    <button type="submit" class="btn btn-primary">Speichern</button>
+                                </div>
+                            </div>
+                            <f:render partial="User/FormFields" arguments="{_all}"/>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</f:section>

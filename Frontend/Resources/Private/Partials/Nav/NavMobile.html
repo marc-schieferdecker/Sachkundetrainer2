@@ -1,0 +1,72 @@
+<nav class="d-print-none d-md-block d-sm-block d-xs-block d-lg-none navbar navbar-expand-lg navbar-dark bg-dark nav-mobile">
+    <button onclick="$('.navbar-collapse').collapse('hide')" class="navbar-toggler active" type="button" data-toggle="collapse" data-target="#navMobilHome" aria-controls="navMobilHome" aria-expanded="false" aria-label="Toggle navigation">
+        <i class="fa fa-home" aria-hidden="true"></i>
+    </button>
+    <button onclick="$('.navbar-collapse').collapse('hide')" class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navMobilTrain" aria-controls="navMobilTrain" aria-expanded="false" aria-label="Toggle navigation">
+        <i class="fa fa-question-circle-o" aria-hidden="true"></i>
+    </button>
+    <f:if condition="{userlevel} > {APPLICATION_USERLEVEL_GUEST}">
+        <button onclick="$('.navbar-collapse').collapse('hide')" class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navMobilStatistics" aria-controls="navMobilStatistics" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="fa fa-pie-chart" aria-hidden="true"></i>
+        </button>
+        <button onclick="$('.navbar-collapse').collapse('hide')" class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navMobilSetup" aria-controls="navMobilSetup" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="fa fa-desktop" aria-hidden="true"></i>
+        </button>
+    </f:if>
+    <f:if condition="{userlevel} >= {APPLICATION_USERLEVEL_ADMIN}">
+        <button onclick="$('.navbar-collapse').collapse('hide')" class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navMobilAdmin" aria-controls="navMobilAdmin" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="fa fa-server" aria-hidden="true"></i>
+        </button>
+    </f:if>
+    <a class="navbar-toggler" href="./?ctrl=Login"><i class="fa fa-sign-out" aria-hidden="true"></i></a>
+
+    <div class="collapse navbar-collapse navbar-toggleable-lg mt-3" id="navMobilHome">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item text-center"><a class="nav-link <f:if condition="{ctrl} == 'Home'">active</f:if>" href="./?ctrl=Home"><i class="fa fa-home" aria-hidden="true"></i> Start</a></li>
+            <li class="nav-item text-center">
+                <f:if condition="{userlevel} > {APPLICATION_USERLEVEL_GUEST}">
+                    <a class="nav-link <f:if condition="{ctrl} == 'Profile'">active</f:if>" href="./?ctrl=Profile"><i class="fa fa-user-circle-o" aria-hidden="true"></i> Profil</a>
+                </f:if>
+            </li>
+            <li class="nav-item text-center"><a class="nav-link <f:if condition="{ctrl} == 'Help'">active</f:if>" href="./?ctrl=Help"><i class="fa fa-question-circle-o" aria-hidden="true"></i> Hilfe/API</i></a></li>
+        </ul>
+    </div>
+    <div class="collapse navbar-collapse navbar-toggleable-lg mt-3" id="navMobilTrain">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item text-center"><a href="./?ctrl=Train&action=Random" class="nav-link <f:if condition="{ctrl} == 'Train' && {action} == 'Random'">active</f:if>"><i class="fa fa-random" aria-hidden="true"></i> Zufällig</a></li>
+            <li class="nav-item text-center"><a href="./?ctrl=Train&action=Topics" class="nav-link <f:if condition="{ctrl} == 'Train' && {action} == 'Topics'">active</f:if>"><i class="fa fa-book" aria-hidden="true"></i> Bestimmte Themen</a></li>
+            <li class="nav-item text-center"><a href="./?ctrl=Train&action=Hard" class="nav-link <f:if condition="{ctrl} == 'Train' && {action} == 'Hard'">active</f:if>"><i class="fa fa-bomb" aria-hidden="true"></i> Schwierige Fragen</a></li>
+            <f:if condition="{userlevel} > {APPLICATION_USERLEVEL_GUEST}">
+                <li class="nav-item text-center"><a href="./?ctrl=Train&action=Favourites" class="nav-link <f:if condition="{ctrl} == 'Train' && {action} == 'Favourites'">active</f:if>"><i class="fa fa-star" aria-hidden="true"></i> Favorisierte Fragen</a></li>
+            </f:if>
+            <li class="nav-item text-center"><a href="./?ctrl=Train&action=List" class="nav-link <f:if condition="{ctrl} == 'Train' && {action} == 'List'">active</f:if>"><i class="fa fa-list" aria-hidden="true"></i> Liste aller Fragen</a></li>
+            <li class="nav-item text-center"><a href="/Tools/Import/SK-Fragenkatalog-BVA-2018-Antworten.pdf" target="_blank" class="nav-link"><i class="fa fa-file-pdf-o" aria-hidden="true"></i> Katalog download</a></li>
+        </ul>
+    </div>
+    <f:if condition="{userlevel} > {APPLICATION_USERLEVEL_GUEST}">
+        <div class="collapse navbar-collapse navbar-toggleable-lg mt-3" id="navMobilStatistics">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item text-center"><a href="./?ctrl=Statistics&action=Statistics" class="nav-link <f:if condition="{ctrl} == 'Statistics' && {action} == 'Statistics'">active</f:if>"><i class="fa fa-bar-chart" aria-hidden="true"></i> Ihre Statistiken</a></li>
+                <li class="nav-item text-center"><a href="./?ctrl=Statistics&action=Favourites" class="nav-link <f:if condition="{ctrl} == 'Statistics' && {action} == 'Favourites'">active</f:if>"><i class="fa fa-heart" aria-hidden="true"></i> Ihre Favoriten</a></li>
+                <li class="nav-item text-center"><a href="./?ctrl=Statistics&action=Comments" class="nav-link <f:if condition="{ctrl} == 'Statistics' && {action} == 'Comments'">active</f:if>"><i class="fa fa-comments-o" aria-hidden="true"></i> Kommentare</a></li>
+            </ul>
+        </div>
+    </f:if>
+    <f:if condition="{userlevel} > {APPLICATION_USERLEVEL_GUEST}">
+        <div class="collapse navbar-collapse navbar-toggleable-lg mt-3" id="navMobilSetup">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item text-center"><a href="./?ctrl=Settings&action=Settings" class="nav-link <f:if condition="{ctrl} == 'Settings' && {action} == 'Settings'">active</f:if>"><i class="fa fa-cogs" aria-hidden="true"></i> Einstellungen</a></li>
+            </ul>
+        </div>
+    </f:if>
+    <f:if condition="{userlevel} >= {APPLICATION_USERLEVEL_ADMIN}">
+        <div class="collapse navbar-collapse navbar-toggleable-lg mt-3" id="navMobilAdmin">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item text-center"><a href="./?ctrl=Topics&action=Topics" class="nav-link <f:if condition="{ctrl} == 'Topics'">active</f:if>"><i class="fa fa-book" aria-hidden="true"></i> Kapitel</a></li>
+                <li class="nav-item text-center"><a href="./?ctrl=Subtopics&action=Subtopics" class="nav-link <f:if condition="{ctrl} == 'Subtopics'">active</f:if>"><i class="fa fa-folder" aria-hidden="true"></i> Gebiete</a></li>
+                <li class="nav-item text-center"><a href="./?ctrl=Questions&action=Questions" class="nav-link <f:if condition="{ctrl} == 'Questions'">active</f:if>"><i class="fa fa-question-circle" aria-hidden="true"></i> Fragen</a></li>
+                <li class="nav-item text-center"><a href="./?ctrl=Users&action=Users" class="nav-link <f:if condition="{ctrl} == 'Users'">active</f:if>"><i class="fa fa-users" aria-hidden="true"></i> Benutzer</a></li>
+            </ul>
+        </div>
+    </f:if>
+</nav>

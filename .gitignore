@@ -1,0 +1,3 @@
+# .gitignore
+/Frontend/Resources/Public/videos/*.mp4
+

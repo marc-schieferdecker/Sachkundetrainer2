@@ -1,0 +1,9 @@
+<form class="form-inline" action="/Frontend/" method="post">
+    <input type="hidden" name="ctrl" value="{search_ctrl}"/>
+    <input type="hidden" name="action" value="{search_action}"/>
+    <f:if condition="{string}">
+        <a href="?ctrl={search_ctrl}&action={search_action}&filterreset"><i class="fa fa-ban" aria-hidden="true"></i> zurücksetzen</a>
+    </f:if>
+    <input class="form-control mr-sm-2" type="text" name="string" value="{string}" placeholder="Suchbegriff" aria-label="Suchen"/>
+    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Suchen</button>
+</form>

@@ -1,0 +1,22 @@
+{
+  "name": "LetsShoot/Sachkundetrainer",
+  "description": "Waffen-Sachkundetrainer",
+  "minimum-stability": "stable",
+  "license": "proprietary",
+  "authors": [
+    {
+      "name": "Marc Schieferdecker",
+      "email": "ms@letsshootshow.de"
+    }
+  ],
+  "require": {
+    "php": "^7.2"
+  },
+  "autoload": {
+    "psr-4": {
+      "LetsShoot\\Sachkundetrainer\\Backend\\": "Api/Classes",
+      "PHPMailer\\": "Api/External",
+      "claviska\\": "Api/External/claviska"
+    }
+  }
+}

@@ -1,0 +1,23 @@
+{namespace c=LetsShoot\Sachkundetrainer\Frontend\ViewHelpers}
+
+<f:layout name="Loggedin"/>
+
+<f:section name="Main">
+    <nav class="navbar navbar-default searchform d-print-none d-none d-lg-table">
+        <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 pull-left">
+            <h1>Benutzerverwaltung</h1>
+        </div>
+        <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 pull-right">
+            <f:render partial="Searchform/Default" arguments="{search_ctrl:'Users', search_action:'Users', string:string}"/>
+        </div>
+    </nav>
+    <div class="container-fluid content">
+        <div class="row">
+            <div class="col-xl-12">
+                <h3>Benutzer löschen</h3>
+                <hr/>
+                <f:format.raw>{error}</f:format.raw>
+            </div>
+        </div>
+    </div>
+</f:section>

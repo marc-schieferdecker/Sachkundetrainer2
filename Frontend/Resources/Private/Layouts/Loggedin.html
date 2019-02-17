@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Waffen-Sachkundetrainer</title>
+    <link rel="stylesheet" href="/Frontend/Resources/Public/node_modules/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/Frontend/Resources/Public/node_modules/bootstrap-select/dist/css/bootstrap-select.min.css">
+    <link rel="stylesheet" href="/Frontend/Resources/Public/css/main.min.css">
+    <link rel="stylesheet" href="/Frontend/Resources/Public/css/font-awesome-4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/Frontend/Resources/Public/css/dataTables.bootstrap4.min.css">
+    <link rel="stylesheet" href="/Frontend/Resources/Public/node_modules/video.js/dist/video-js.min.css">
+    <!-- jQuery and video.js in head, but the rest at the end of the body element -->
+    <script src="/Frontend/Resources/Public/node_modules/jquery/dist/jquery.min.js"></script>
+    <f:render partial="A2HS/head.html"/>
+</head>
+<body>
+<div class="wrapper">
+    <f:render partial="Nav/Nav" arguments="{_all}"/>
+    <!-- Page Content Holder -->
+    <div id="content">
+        <f:render partial="Nav/NavMobile" arguments="{_all}"/>
+        <f:if condition="{RightsMissing}">
+            <f:then>
+                <f:format.raw>{RightsMissing}</f:format.raw>
+            </f:then>
+            <f:else>
+                <f:render section="Main"/>
+            </f:else>
+        </f:if>
+    </div>
+</div>
+<!-- JS -->
+<script src="/Frontend/Resources/Public/node_modules/popper.js/dist/umd/popper.min.js"></script>
+<script src="/Frontend/Resources/Public/node_modules/tooltip.js/dist/umd/tooltip.min.js"></script>
+<script src="/Frontend/Resources/Public/node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="/Frontend/Resources/Public/node_modules/bootstrap-select/dist/js/bootstrap-select.min.js"></script>
+<script src="/Frontend/Resources/Public/node_modules/bootstrap-select/dist/js/i18n/defaults-de_DE.min.js"></script>
+<script src="/Frontend/Resources/Public/javascript/jquery.dataTables.min.js"></script>
+<script src="/Frontend/Resources/Public/javascript/dataTables.bootstrap4.min.js"></script>
+<script src="/Frontend/Resources/Public/javascript/jquery.md5.js"></script>
+<script src="/Frontend/Resources/Public/javascript/esrever.js"></script>
+<script src="/Frontend/Resources/Public/node_modules/video.js/dist/video.min.js"></script>
+<script src="/Frontend/Resources/Public/node_modules/video.js/dist/lang/de.js"></script>
+<script src="/Frontend/Resources/Public/javascript/application.min.js"></script>
+<script type="text/javascript">
+    $( window ).resize(function() {
+        // Resize videos
+        resizeVideoPlayers();
+    });
+    $( document ).ready(function() {
+        /**
+         * Video js integration
+         */
+        window.HELP_IMPROVE_VIDEOJS = false;
+        resizeVideoPlayers();
+
+        /**
+         * Do not use autocomplete - works probably not in chrome because google is retarded
+         */
+        $("input").attr("autocomplete", "off");
+        $("form").attr("autocomplete", "off");
+
+        /**
+         * Show Modal
+         */
+        showModal();
+
+        /**
+         * Search for datatables
+         */
+        $(".datatable").each(function(i,element) {
+            $(element).DataTable({
+                responsive: true,
+                info: 0,
+                order: [[$(element).attr('datatable-order-column'), "asc"]],
+                ordering: $(element).attr('datatable-ordering') == 1 ? true : false,
+                paging: $(element).attr('datatable-paging') == 1 ? true : false,
+                searching: $(element).attr('datatable-searching') == 1 ? true : false,
+                language: getDatatablesLanguageStr(),
+                drawCallback: function(settings) {
+                    updateImageModals();
+                }
+            });
+        });
+        $.fn.dataTable.ext.errMode = function ( settings, helpPage, message ) {
+            console.log(message);
+        };
+
+        /**
+         * Image modals
+         */
+        updateImageModals();
+
+        /**
+         * Ask on confirmation for links with class 'confirm'
+         */
+        updateConfirmATags();
+
+        /**
+         * Acticate date picker fields
+         */
+        updateDatepickers();
+
+        /**
+         * Select multiple / select picker
+         */
+        update_selectPickers();
+
+        /**
+         * Bugfix display bug if tabs/pill/list group contains complex datatables, video players, ...
+         */
+        $('.nav-tabs a, .nav-pills a').on('shown.bs.tab', function(event) {
+            // Selected tab
+            $('#'+$(event.target).attr('aria-controls')).show();
+            // Tab to hide
+            $('#'+$(event.relatedTarget).attr('aria-controls')).hide();
+            // Resize video players
+            resizeVideoPlayers();
+        });
+        $('.collapse').on('shown.bs.collapse', function(event) {
+            // Resize video players
+            resizeVideoPlayers();
+        });
+
+        /**
+         * Bugfix non visible tabs with required form fields
+         */
+        $('form input, form select, form textarea').each(function(i) {
+            this.addEventListener('invalid', function(e){
+                if($(e.target).prop('tagName') == 'SELECT') {
+                    paneId = $(e.target).parent().parent().parent().parent().attr('id');
+                }
+                else {
+                    paneId = $(e.target).parent().parent().parent().attr('id');
+                }
+                tabLinkId = paneId + '-tab';
+                if($('#'+tabLinkId)) {
+                    if ($('#' + tabLinkId).attr('data-toggle') && $('#' + tabLinkId).attr('data-toggle') == 'tab') {
+                        $('#' + tabLinkId).tab('show');
+                    }
+                }
+                return false;
+            }, false);
+        });
+    });
+</script>
+<!-- Creates the bootstrap modal where the image will appear -->
+<div class="hidden d-print-none" id="imagemodal" tabindex="-1" role="dialog" aria-labelledby="myImageModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="myImageModalLabel">Bildvorschau</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Schließen</span></button>
+            </div>
+            <div class="modal-body">
+                <img src="" id="imagepreview" style="max-width: 100%;"/>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Schließen</button>
+            </div>
+        </div>
+    </div>
+</div>
+<f:format.raw>{modal}</f:format.raw>
+<f:render partial="A2HS/button.html"/>
+</body>
+</html>

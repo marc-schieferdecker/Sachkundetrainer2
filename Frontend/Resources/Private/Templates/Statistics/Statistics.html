@@ -1,0 +1,104 @@
+{namespace c=LetsShoot\Sachkundetrainer\Frontend\ViewHelpers}
+
+<f:layout name="Loggedin"/>
+
+<f:section name="Main">
+    <nav class="navbar navbar-default searchform d-print-none d-none d-lg-table">
+        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 pull-left">
+            <h1>Ihre Statistiken</h1>
+        </div>
+    </nav>
+    <div class="container-fluid content">
+        <div class="row">
+            <div class="col-xl-12">
+                <f:if condition="{error}">
+                    <f:then>
+                        <f:format.raw>{error}</f:format.raw>
+                    </f:then>
+                    <f:else>
+                        <h2>Beantwortete Fragen</h2>
+                        <div class="row">
+                            <div class="col-12">
+                                <table class="table table-striped">
+                                    <tr>
+                                        <th style="width: 50%"><i class="fa fa-plus-square" aria-hidden="true"></i> Insgesamt beantwortete Fragen *</th>
+                                        <td style="width: 50%">{count_total}</td>
+                                    </tr>
+                                    <tr>
+                                        <th style="width: 50%"><i class="fa fa-thumbs-o-up" aria-hidden="true"></i> Richtig beantwortete Fragen</th>
+                                        <td style="width: 50%">{count_right}</td>
+                                    </tr>
+                                    <tr>
+                                        <th style="width: 50%"><i class="fa fa-thumbs-o-down" aria-hidden="true"></i> Falsch beantwortete Fragen</th>
+                                        <td style="width: 50%">{count_wrong}</td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12 col-xl-6 col-lg-6 col-md-6 col-sm-6 mt-3">
+                                <h3>Richtig</h3>
+                                <div class="progress" style="height:26px">
+                                    <f:if condition="{count_right}">
+                                        <div class="progress-bar bg-success" role="progressbar" style="width:{precent_right}%" aria-valuenow="{precent_right}" aria-valuemin="0" aria-valuemax="100">
+                                            <c:Numberformat number="{precent_right}"/>%
+                                        </div>
+                                    </f:if>
+                                </div>
+                            </div>
+                            <div class="col-12 col-xl-6 col-lg-6 col-md-6 col-sm-6 mt-3">
+                                <h3>Falsch</h3>
+                                <div class="progress" style="height:26px">
+                                    <f:if condition="{count_wrong}">
+                                        <div class="progress-bar bg-danger" role="progressbar" style="width:{precent_wrong}%" aria-valuenow="{precent_wrong}" aria-valuemin="0" aria-valuemax="100">
+                                            <c:Numberformat number="{precent_wrong}"/>%
+                                        </div>
+                                    </f:if>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mt-3">
+                            <div class="col-12">
+                                <div class="alert alert-secondary" role="alert">
+                                    <p>Hinweis: Sie sollten auf jeden Fall über 75% der Fragen richtig beantworten, dann sind Sie auf der sicheren Seite. Aktivieren Sie dazu in den <a href="/Frontend/?ctrl=Settings&action=Settings"><u>Einstellungen</u></a>, dass doppelte Fragen unterdrückt werden und üben Sie den Katalog einmal komplett durch.</p>
+                                    <p class="small">* mehrfach beantwortete Fragen werden auch mehrfach gezählt.</p>
+                                </div>
+                                <p class="text-right">
+                                    <a href="/Frontend/?ctrl=Statistics&action=Statistics&reset=true" class="btn btn-danger confirm" confirmation-message="Wirklich löschen?">Statistik zurücksetzen</a>
+                                </p>
+                            </div>
+                        </div>
+
+                        <f:if condition="{questions}">
+                            <div class="row mt-5">
+                                <div class="col-12">
+                                    <h2>Schwierige Fragen</h2>
+                                    <p>Die Top 50 der am meisten falsch beantworten Fragen aller Nutzer.</p>
+                                    <table class="table table-striped">
+                                        <thead>
+                                            <tr>
+                                                <th>Frage</th><th>Falsche Antworten</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <f:for each="{questions}" as="question">
+                                                <tr>
+                                                    <td>
+                                                        <a href="/Frontend/?ctrl=Train&action=Topics&id={question.question_id}">
+                                                            {question.question_number} {question.question_text}
+                                                        </a>
+                                                    </td>
+                                                    <td>{question.question_count_wrong}</td>
+                                                </tr>
+                                            </f:for>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </f:if>
+                    </f:else>
+                </f:if>
+            </div>
+        </div>
+    </div>
+</f:section>

@@ -1,0 +1,47 @@
+{namespace c=LetsShoot\Sachkundetrainer\Frontend\ViewHelpers}
+
+<f:layout name="Loggedin"/>
+
+<f:section name="Main">
+    <nav class="navbar navbar-default searchform d-print-none d-none d-lg-table">
+        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 pull-left">
+            <h1>Kommentare</h1>
+        </div>
+    </nav>
+    <div class="container-fluid content">
+        <div class="row">
+            <div class="col-xl-12">
+                <f:if condition="{error}">
+                    <f:then>
+                        <f:format.raw>{error}</f:format.raw>
+                    </f:then>
+                    <f:else>
+                        <h2>Kommentare zum Fragenkatalog</h2>
+                        <p>Hier finden Sie alle Kommentare zum Fragenkatalog, sortiert nach Aktualität.</p>
+                        <f:if condition="{questions}">
+                            <f:then>
+                                <f:for each="{questions}" as="question">
+                                    <div class="row mb-3">
+                                        <div id="commentsbyquestion" class="col-xl-9 col-lg-9 col-md-10 col-sm-10">
+                                            <div class="card">
+                                                <div class="card-header">
+                                                    <p class="lead">{question.question_number} <a href="/Frontend/?ctrl=Train&action=Topics&id={question.question_id}">{question.question_text}</a></p>
+                                                </div>
+                                                <div class="card-body">
+                                                    <f:render partial="Comment/comments-simple" arguments="{_all}"/>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </f:for>
+                            </f:then>
+                            <f:else>
+                                <p>Leider wurden noch keine Kommentare geschrieben.</p>
+                            </f:else>
+                        </f:if>
+                    </f:else>
+                </f:if>
+            </div>
+        </div>
+    </div>
+</f:section>

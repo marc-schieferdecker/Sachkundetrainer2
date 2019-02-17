@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Waffen-Sachkundetrainer</title>
+    <link rel="stylesheet" href="/Frontend/Resources/Public/node_modules/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/Frontend/Resources/Public/node_modules/cookieconsent/build/cookieconsent.min.css">
+    <link rel="stylesheet" href="/Frontend/Resources/Public/css/main.min.css">
+    <script src="/Frontend/Resources/Public/node_modules/jquery/dist/jquery.min.js"></script>
+    <style type="text/css">
+        body {
+            padding-bottom: 16px;
+            background-color: #eee;
+        }
+        h1 {
+            color: #fdfdff;
+            font-size: 36px;
+            text-shadow: 3px 3px 1px rgba(0,0,0,0.2);
+        }
+        .loginwrapper {
+            padding-top: 40px;
+        }
+        .container {
+            max-width: 470px;
+            border: 1px solid #ddd;
+            padding-top: 16px;
+            box-shadow: 3px 3px 3px rgba(0,0,0,0.22);
+            background-color: #fff;
+        }
+        .form-signin {
+            padding: 15px;
+            margin: 0 auto;
+        }
+        .form-signin .form-signin-heading,
+        .form-signin .checkbox {
+            margin-bottom: 10px;
+        }
+        .form-signin .checkbox {
+            font-weight: normal;
+        }
+        .form-signin .form-control {
+            position: relative;
+            height: auto;
+            -webkit-box-sizing: border-box;
+            box-sizing: border-box;
+        }
+        .form-signin .form-control:focus {
+            z-index: 2;
+        }
+        .form-signin input, .form-signin select {
+            margin-bottom: 10px;
+            border-top-left-radius: 0;
+            border-top-right-radius: 0;
+        }
+        .tab-content {
+            border-left: 1px solid #ddd;
+            border-right: 1px solid #ddd;
+            border-bottom: 1px solid #ddd;
+            margin-bottom: 16px;
+        }
+    </style>
+    <f:render partial="A2HS/head.html"/>
+</head>
+<body>
+<f:render partial="A2HS/button.html"/>
+<div class="loginwrapper">
+    <div class="container">
+        <div class="text-center">
+            <img src="/Frontend/Resources/Public/images/logo.jpg" style="width: 300px; margin-bottom: 32px;"/>
+        </div>
+        <div class="text-center" style="margin-bottom: 32px"><h1>Waffensachkunde-Trainer</h1></div>
+        <f:render section="Main"/>
+    </div>
+</div>
+<script type="text/javascript">
+    //<!--
+    activeTab = '{show}';
+    if(activeTab != '') {
+        $(document).ready(function(){
+            $('.nav-tabs a[href="#' + activeTab + '"]').tab('show');
+        });
+    }
+    //-->
+</script>
+<!-- Popper.js, then Bootstrap JS -->
+<script src="/Frontend/Resources/Public/node_modules/popper.js/dist/umd/popper.min.js"></script>
+<script src="/Frontend/Resources/Public/node_modules/tooltip.js/dist/umd/tooltip.min.js"></script>
+<script src="/Frontend/Resources/Public/node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="/Frontend/Resources/Public/node_modules/cookieconsent/build/cookieconsent.min.js"></script>
+<script>
+    window.addEventListener("load", function(){
+        window.cookieconsent.initialise({
+            "palette": {
+                "popup": {
+                    "background": "#aa0000",
+                    "text": "#ffdddd"
+                },
+                "button": {
+                    "background": "#ff0000"
+                }
+            },
+            "showLink": false,
+            "theme": "edgeless",
+            "position": "bottom-right",
+            "content": {
+                "message": "Diese Webseite verwendet Cookies.",
+                "dismiss": "Okay",
+                "link": "Mehr Infos"
+            }
+        })});
+</script>
+<f:format.raw>{modal}</f:format.raw>
+</body>
+</html>

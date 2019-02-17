@@ -1,0 +1,25 @@
+{namespace c=LetsShoot\Sachkundetrainer\Frontend\ViewHelpers}
+
+<f:layout name="Loggedin"/>
+
+<f:section name="Main">
+    <nav class="navbar navbar-default searchform d-print-none d-none d-lg-table">
+        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 pull-left">
+            <h1>Vielen Dank für Ihre Spende!</h1>
+        </div>
+    </nav>
+    <div class="container-fluid content">
+        <div class="row">
+            <div class="col-xl-12">
+                <h2>Danke {_user.user_name}!</h2>
+                <hr/>
+                <p>Den Sachkundetrainer zu entwickeln und die Fragen und Antworten einzupflegen war viel Arbeit. Ich freue mich darüber, dass Sie diese Arbeit <f:if condition="{amount}">mit dem Betrag von {amount} €</f:if> honorieren.</p>
+                <p>Falls Ihre Waffensachkundeprüfung noch bevorsteht wünsche ich Ihnen in jedem Fall gutes Gelingen und viel Erfolg und falls die Prüfung bereits hinter Ihnen liegt, hoffe ich natürlich, dass Sie bestanden haben und der eigenen Waffenbesitzkarte nun nichts mehr im Wege steht.</p>
+                <p>Sollten Sie darüber hinaus Fragen oder Anregungen zum Sachkundetrainer haben, <a href="mailto:ms@letsshootshow.de"><u>schreiben Sie mir gerne eine E-Mail</u></a>.</p>
+                <p>Vielen Dank!</p>
+                <p>Let's Shoot - Marc Schieferdecker</p>
+                <p><em>PS: Falls es noch nicht bekannt ist, ich habe ja auch einen YouTube Kanal. Über ein Abonnement freue ich mich natürlich! <a href="https://www.youtube.com/eisenfell"><u>Hier geht es zum Kanal</u></a>.</em></p>
+            </div>
+        </div>
+    </div>
+</f:section>

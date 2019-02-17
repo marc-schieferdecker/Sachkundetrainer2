@@ -1,0 +1,25 @@
+{namespace c=LetsShoot\Sachkundetrainer\Frontend\ViewHelpers}
+
+<f:layout name="Loggedin"/>
+
+<f:section name="Main">
+    <nav class="navbar navbar-default searchform d-print-none d-none d-lg-table">
+        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 pull-left">
+            <h1>Schwierige Fragen üben</h1>
+        </div>
+    </nav>
+    <div class="container-fluid content">
+        <div class="row">
+            <div class="col-xl-12">
+                <f:if condition="{error}">
+                    <f:then>
+                        <f:format.raw>{error}</f:format.raw>
+                    </f:then>
+                    <f:else>
+                        <f:render partial="Train/QuestionForm" arguments="{_all}"/>
+                    </f:else>
+                </f:if>
+            </div>
+        </div>
+    </div>
+</f:section>

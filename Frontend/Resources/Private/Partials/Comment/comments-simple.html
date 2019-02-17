@@ -1,0 +1,46 @@
+{namespace c=LetsShoot\Sachkundetrainer\Frontend\ViewHelpers}
+
+<div class="row">
+    <div id="commentAccordion{question.question_id}" class="accordion col-12">
+        <div class="card">
+            <div class="card-header" id="comments">
+                <h5 class="mb-0">
+                    <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#commentList{question.question_id}" aria-expanded="true" aria-controls="commentList{question.question_id}">
+                        <i class="fa fa-chevron-down" aria-hidden="true"></i> Kommentare zu dieser Frage <span class="badge badge-info"><f:count>{question.comments}</f:count></span>
+                    </button>
+                </h5>
+            </div>
+            <div id="commentList{question.question_id}" class="collapse" aria-labelledby="comments" data-parent="#commentAccordion{question.question_id}">
+                <div class="card-body">
+                    <f:if condition="{question.comments}">
+                        <f:for each="{question.comments}" as="comment">
+                            <f:render partial="Comment/comment" arguments="{comment:comment}"/>
+                        </f:for>
+                    </f:if>
+                </div>
+            </div>
+        </div>
+        <f:if condition="{userlevel} > {APPLICATION_USERLEVEL_GUEST}">
+            <div class="card">
+                <div class="card-header" id="newcomment">
+                    <h5 class="mb-0">
+                        <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#commentForm{question.question_id}" aria-expanded="true" aria-controls="commentForm{question.question_id}">
+                            <i class="fa fa-plus" aria-hidden="true"></i> Kommentar schreiben
+                        </button>
+                    </h5>
+                </div>
+                <div id="commentForm{question.question_id}" class="collapse" aria-labelledby="comments" data-parent="#commentAccordion{question.question_id}">
+                    <div class="card-body">
+                        <form name="addcommentform{question.question_id}" id="addcommentform{question.question_id}" method="post" action="/Frontend/" enctype="multipart/form-data" onsubmit="addComment('addcommentform{question.question_id}','commentList{question.question_id} .card-body'); return false;">
+                            <input type="hidden" name="ctrl" value="Comments"/>
+                            <input type="hidden" name="action" value="Add"/>
+                            <input type="hidden" name="comment_question_id" value="{question.question_id}"/>
+                            <textarea id="comment_text{question.question_id}" name="comment_text" required="required" placeholder="Ihr Kommentar" class="form-control" style="height:150px"></textarea>
+                            <input type="submit" class="btn btn-secondary btn-sm mt-3" value="Kommentar hinzufügen"/>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </f:if>
+    </div>
+</div>

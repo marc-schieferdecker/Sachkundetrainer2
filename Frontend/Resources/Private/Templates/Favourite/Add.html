@@ -1,0 +1,12 @@
+<f:layout name="Nolayout" />
+
+<f:section name="Main">
+    <f:if condition="{error}">
+        <f:then>
+            <f:format.raw>{error}</f:format.raw>
+        </f:then>
+        <f:else>
+            Das hat geklappt.
+        </f:else>
+    </f:if>
+</f:section>

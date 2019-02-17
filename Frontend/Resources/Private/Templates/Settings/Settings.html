@@ -1,0 +1,107 @@
+{namespace c=LetsShoot\Sachkundetrainer\Frontend\ViewHelpers}
+
+<f:layout name="Loggedin"/>
+
+<f:section name="Main">
+    <nav class="navbar navbar-default searchform d-print-none d-none d-lg-table">
+        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 pull-left">
+            <h1>Konfiguration</h1>
+        </div>
+    </nav>
+    <div class="container-fluid content">
+        <div class="row">
+            <div class="col-xl-12">
+                <f:if condition="{error}">
+                    <f:then>
+                        <f:format.raw>{error}</f:format.raw>
+                    </f:then>
+                    <f:else>
+                        <h2>Persönliche Einstellungen</h2>
+                        <f:if condition="{userlevel} > {APPLICATION_USERLEVEL_GUEST}">
+                            <form method="post" id="updateform" action="/Frontend/" enctype="multipart/form-data">
+                                <input type="hidden" name="ctrl" value="Settings"/>
+                                <input type="hidden" name="action" value="Settings"/>
+                                <input type="hidden" name="save" value="true"/>
+                                <div class="row submitrow">
+                                    <div class="col text-right">
+                                        <button type="submit" class="btn btn-primary">Speichern</button>
+                                    </div>
+                                </div>
+                                <fieldset>
+                                    <p>
+                                        Hier können Sie konfigurieren, ob der Trainer verhindern soll, dass Ihnen richtig beantwortete Fragen mehrfach gestellt werden (wirkt sich nicht auf favorisierte und schwierige Fragen aus).
+                                    </p>
+                                    <p>
+                                        Dies hat Vor- und Nachteile:
+                                    </p>
+                                    <p>
+                                        Am Besten ist es, die Fragen am Anfang ohne diese Option zu üben, da nur durch Wiederholung auch Sicherheit entsteht.
+                                        Wenn Sie der Meinung sind, dass die prüfungreif sind, dann aktivieren Sie diese Option und üben den gesamten Katalog einmal komplett durch.
+                                        Sollte Ihr Ergebnis dann passen... Viel Glück bei der Prüfung!
+                                    </p>
+                                    <div class="form-group row">
+                                        <div class="col-xl-3 col-lg-3 col-md-4 col-sm-4">
+                                            <label>Doppelte Fragen unterdrücken?</label>
+                                        </div>
+                                        <div class="col-xl-2 col-lg-3 col-md-6 col-sm-8">
+                                            <select name="disable_duplicate_questions" id="disable_duplicate_questions" class="form-control selectpicker show-tick">
+                                                <option value="0" <f:if condition="!{_user.user_config.disable_duplicate_questions}">selected="selected"</f:if>>Nein</option>
+                                                <option value="1" <f:if condition="{_user.user_config.disable_duplicate_questions}">selected="selected"</f:if>>Ja</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <f:if condition="{_user.user_config.disable_duplicate_questions}">
+                                        <div class="form-group row">
+                                            <div class="col-xl-3 col-lg-3 col-md-4 col-sm-4">
+                                                <label>Anzahl der bereits beantworteten Fragen</label>
+                                            </div>
+                                            <div class="col-xl-2 col-lg-3 col-md-6 col-sm-8">
+                                                <p><f:count>{_user.user_answered}</f:count></p>
+                                                <p><a href="/Frontend/?ctrl=Settings&action=Settings&reset_answered=true" class="btn btn-danger btn-sm confirm" confirmation-message="Wirklich zurücksetzen?">zurücksetzen</a></p>
+                                            </div>
+                                        </div>
+                                    </f:if>
+                                </fieldset>
+                                <fieldset>
+                                    <p>
+                                        Wenn Sie es ein wenig spannender machen wollen: Aktivieren Sie das Zeitlimit zum Beantworten von Fragen, denn auch in der echten Prüfung haben Sie ein Zeitlimit und einen gewissen Druck die Fragen zügig zu beantworten.
+                                    </p>
+                                    <div class="form-group row">
+                                        <div class="col-xl-3 col-lg-3 col-md-4 col-sm-4">
+                                            <label>Zeitlimit zum Beantworten einer Frage aktivieren?</label>
+                                        </div>
+                                        <div class="col-xl-2 col-lg-3 col-md-6 col-sm-8">
+                                            <select name="timelimit_to_answere" id="timelimit_to_answere" class="form-control selectpicker show-tick">
+                                                <option value="0" <f:if condition="{_user.user_config.timelimit_to_answere} == 0">selected="selected"</f:if>>Kein Zeitlimit</option>
+                                                <option value="15" <f:if condition="{_user.user_config.timelimit_to_answere} == 15">selected="selected"</f:if>>15 Sekunden (schwer)</option>
+                                                <option value="30" <f:if condition="{_user.user_config.timelimit_to_answere} == 30">selected="selected"</f:if>>30 Sekunden (mittel)</option>
+                                                <option value="60" <f:if condition="{_user.user_config.timelimit_to_answere} == 60">selected="selected"</f:if>>60 Sekunden (leicht)</option>
+                                                <option value="90" <f:if condition="{_user.user_config.timelimit_to_answere} == 90">selected="selected"</f:if>>90 Sekunden (Grüße an die 9a der Förderschule Emskirchen)</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </fieldset>
+                                <fieldset>
+                                    <p>
+                                        Alle Nutzer haben die Möglichkeit zu den Fragen Kommentare einzureichen. Sollen Ihnen diese Kommentare angezeigt werden?
+                                    </p>
+                                    <div class="form-group row">
+                                        <div class="col-xl-3 col-lg-3 col-md-4 col-sm-4">
+                                            <label>Kommentare anzeigen?</label>
+                                        </div>
+                                        <div class="col-xl-2 col-lg-3 col-md-6 col-sm-8">
+                                            <select name="show_comments" id="show_comments" class="form-control selectpicker show-tick">
+                                                <option value="1" <f:if condition="{_user.user_config.show_comments} == 1">selected="selected"</f:if>>Ja</option>
+                                                <option value="0" <f:if condition="{_user.user_config.show_comments} == 0">selected="selected"</f:if>>Nein</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </fieldset>
+                            </form>
+                        </f:if>
+                    </f:else>
+                </f:if>
+            </div>
+        </div>
+    </div>
+</f:section>

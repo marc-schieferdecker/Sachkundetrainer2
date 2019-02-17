@@ -1,0 +1,29 @@
+<form method="post" id="selecttopicform" action="/Frontend/" enctype="multipart/form-data">
+    <input type="hidden" name="ctrl" value="Train"/>
+    <input type="hidden" name="action" value="{action}"/>
+    <h3>Bitte wählen Sie ein Themengebiet</h3>
+    <div class="row">
+        <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-3">
+            <select name="topic_id" id="topic_id" class="form-control" onchange="$('#subtopic_id option').prop('selected', false); $('#selecttopicform').submit()">
+                <option value="">-- Bitte wählen --</option>
+                <f:render partial="Topic/Options" arguments="{selected_id:topic_id, topics:topics}"/>
+            </select>
+        </div>
+        <f:if condition="{topic_id}">
+            <f:for each="{topics}" as="topic">
+                <f:if condition="{topic.topic_id} == {topic_id} && {topic.subtopics}">
+                    <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-3">
+                        <select name="subtopic_id" id="subtopic_id" class="form-control" onchange="$('#selecttopicform').submit()">
+                            <option value="">-- Bitte wählen --</option>
+                            <f:render partial="Subtopic/Options" arguments="{selected_id:subtopic_id, subtopics:topic.subtopics}"/>
+                        </select>
+                    </div>
+                </f:if>
+            </f:for>
+        </f:if>
+    </div>
+</form>
+
+<f:if condition="{topic_id}">
+    <f:render partial="Train/QuestionForm" arguments="{_all}"/>
+</f:if>
