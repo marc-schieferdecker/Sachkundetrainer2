@@ -1,0 +1,111 @@
+<f:layout name="Login" />
+
+<f:section name="Main">
+    <ul class="nav nav-pills nav-fill" id="tabs" role="tablist">
+        <li class="nav-item">
+            <a class="nav-link active" id="standardlogin-tab" data-toggle="tab" href="#standardlogin" role="tab" aria-controls="standardlogin" aria-expanded="true">Login</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" id="guestlogin-tab" data-toggle="tab" href="#guestlogin" role="tab" aria-controls="guestlogin">Gast</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" id="newaccount-tab" data-toggle="tab" href="#newaccount" role="tab" aria-controls="newaccount">Neues Konto</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" id="passwordlost-tab" data-toggle="tab" href="#passwordlost" role="tab" aria-controls="guestlogin">Kennwort vergessen</a>
+        </li>
+    </ul>
+    <div class="tab-content pill-content" id="myTabContent">
+        <div class="tab-pane show active" id="standardlogin" role="tabpanel" aria-labelledby="standardlogin-tab">
+            <form class="form-signin" method="post" action="/Frontend/">
+                <input type="hidden" name="ctrl" value="Login"/>
+                <input type="hidden" name="do" value="login"/>
+                <f:if condition="{messagestandardlogin}">
+                    <p class="alert alert-danger">{messagestandardlogin}</p>
+                    <script>$(window).on('load',function(){$('#standardlogin-tab').tab('show')});</script>
+                </f:if>
+                <label for="inputEmail" class="sr-only">Ihr Benutzername</label>
+                <input type="email" id="inputEmail" name="email" class="form-control" placeholder="Ihre E-Mail Adresse" required>
+                <label for="inputPasswort" class="sr-only">Ihr Kennwort</label>
+                <input type="password" id="inputPasswort" name="password" class="form-control" placeholder="Ihr Kennwort" required>
+                <button class="btn btn-lg btn-primary btn-block" type="submit">Anmelden</button>
+            </form>
+        </div>
+        <div class="tab-pane" id="guestlogin" role="tabpanel" aria-labelledby="guestlogin-tab">
+            <form class="form-signin" method="post" action="/Frontend/">
+                <input type="hidden" name="api_key" value="{APPLICATION_GUEST_KEY}"/>
+                <f:if condition="{messageguestlogin}">
+                    <p class="alert alert-danger">{messageguestlogin}</p>
+                    <script>$(window).on('load',function(){$('#guestlogin-tab').tab('show')});</script>
+                </f:if>
+                <p><small>Sie können den Sachkundetrainer auch nutzen, ohne ein Konto anzulegen. Es fehlen dann einige Funktion, wie z.B. Ihre persönlichen Statistiken, es sind nur die wichtigsten Funktionen vorhanden.</small></p>
+                <button class="btn btn-lg btn-primary btn-block" type="submit">Als Gast nutzen</button>
+            </form>
+        </div>
+        <div class="tab-pane" id="newaccount" role="tabpanel" aria-labelledby="newaccount-tab">
+            <form class="form-signin" method="post" action="/Frontend/">
+                <input type="hidden" name="ctrl" value="Login"/>
+                <input type="hidden" name="do" value="new"/>
+                <f:if condition="{messagenewaccount}">
+                    <p class="alert alert-danger">{messagenewaccount}</p>
+                    <script>$(window).on('load',function(){$('#newaccount-tab').tab('show')});</script>
+                </f:if>
+                <p><small>Legen Sie ein neues Konto an und üben Sie mit dem vollen Funktionsumfang für die Waffen-Sachkundeprüfung.</small></p>
+                <p><small><strong>Mit dem Anlegen Ihres Kontos akzeptieren Sie die <a href="javascript:return void(0)" data-toggle="modal" data-target="#dsgvomodal"><u>Datenschutzbestimmungen</u></a> dieser Webseite!</strong></small></p>
+                <label for="inputName" class="sr-only">Ihr Name</label>
+                <input type="text" id="inputName" name="name" class="form-control" placeholder="Ihr Name" required>
+                <label for="inputEmail2" class="sr-only">Ihre E-Mail Adresse</label>
+                <input type="email" id="inputEmail2" name="email" class="form-control" placeholder="Ihre E-Mail Adresse" required>
+                <label for="inputPasswort2" class="sr-only">Ihr Kennwort</label>
+                <input type="password" id="inputPasswort2" name="password" class="form-control" placeholder="Ihr Kennwort" required>
+                <button class="btn btn-lg btn-primary btn-block" type="submit">Konto erstellen</button>
+            </form>
+        </div>
+        <div class="tab-pane" id="passwordlost" role="tabpanel" aria-labelledby="passwordlost-tab">
+            <form class="form-signin" method="post" action="/Frontend/">
+                <input type="hidden" name="ctrl" value="Login"/>
+                <input type="hidden" name="do" value="passwordlost"/>
+                <f:if condition="{messagepasswordlost}">
+                    <p class="alert alert-danger">{messagepasswordlost}</p>
+                    <script>$(window).on('load',function(){$('#passwordlost-tab').tab('show')});</script>
+                </f:if>
+                <label for="inputEmail3" class="sr-only">Ihre E-Mail Adresse</label>
+                <input type="email" id="inputEmail3" name="email" class="form-control" placeholder="Ihre E-Mail Adresse" required>
+                <button class="btn btn-lg btn-primary btn-block" type="submit">Login anfordern</button>
+            </form>
+        </div>
+    </div>
+    <p><small><a href="javascript:return void(0)" data-toggle="modal" data-target="#imprintmodal">Impressum</a> | <a href="javascript:return void(0)" data-toggle="modal" data-target="#dsgvomodal">Datenschutz</a></small></p>
+    <div class="modal fade" id="imprintmodal" tabindex="-1" role="dialog" aria-labelledby="ImprintModalTitle" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="ImprintModalTitle">Impressum</h4>
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Schließen</span></button>
+                </div>
+                <div class="modal-body">
+                    <f:render partial="Disclaimer/imprint.html"/>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Schließen</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="dsgvomodal" tabindex="-1" role="dialog" aria-labelledby="DsgvoModalTitle" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="DsgvoModalTitle">Datenschutz</h4>
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Schließen</span></button>
+                </div>
+                <div class="modal-body">
+                    <f:render partial="Disclaimer/dsgvo.html"/>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Schließen</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</f:section>

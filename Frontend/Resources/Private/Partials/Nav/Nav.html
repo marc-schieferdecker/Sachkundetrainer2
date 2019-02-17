@@ -1,0 +1,64 @@
+<nav id="sidebar-desktop" class="d-print-none d-none d-lg-block nav-desktop">
+    <div class="sidebar-header">
+        <a href="https://www.youtube.com/eisenfell" target="_blank"><img src="/Frontend/Resources/Public/images/logo.jpg"/></a>
+        <div class="text-center mainnav">
+            <a class="btn btn-outline-dark <f:if condition="{ctrl} == 'Home'">active</f:if>" href="./?ctrl=Home"><i class="fa fa-home" aria-hidden="true"></i></a>
+            <f:if condition="{userlevel} > {APPLICATION_USERLEVEL_GUEST}">
+                <a class="btn btn-outline-dark <f:if condition="{ctrl} == 'Profile'">active</f:if>" href="./?ctrl=Profile"><i class="fa fa-user-circle-o" aria-hidden="true"></i></a>
+            </f:if>
+            <a class="btn btn-outline-dark <f:if condition="{ctrl} == 'Help'">active</f:if>" href="./?ctrl=Help"><i class="fa fa-question-circle-o" aria-hidden="true"></i></a>
+            <a class="btn btn-outline-dark <f:if condition="{ctrl} == 'Login'">active</f:if>" href="./?ctrl=Login"><i class="fa fa-sign-out" aria-hidden="true"></i></a>
+        </div>
+    </div>
+
+    <ul class="list-unstyled components">
+        <li><p><small>Hallo, {_user.user_name}!</small></p></li>
+
+        <li class="<f:if condition="{ctrl} == 'Train'">active</f:if>">
+            <a href="#lookupsSubmenu" data-toggle="collapse" aria-expanded="<f:if condition="{ctrl} == 'Train'"><f:then>true</f:then><f:else>false</f:else></f:if>"><i class="fa fa-database" aria-hidden="true"></i> Fragenkatalog</a>
+            <ul class="collapse <f:if condition="{ctrl} == 'Train'">show</f:if> list-unstyled" id="lookupsSubmenu">
+                <li><a href="./?ctrl=Train&action=Random" class="<f:if condition="{ctrl} == 'Train' && {action} == 'Random'">active</f:if>">Zufällig</a></li>
+                <li><a href="./?ctrl=Train&action=Topics" class="<f:if condition="{ctrl} == 'Train' && {action} == 'Topics'">active</f:if>">Bestimmte Themen</a></li>
+                <li><a href="./?ctrl=Train&action=Hard" class="<f:if condition="{ctrl} == 'Train' && {action} == 'Hard'">active</f:if>">Schwierige Fragen</a></li>
+                <f:if condition="{userlevel} > {APPLICATION_USERLEVEL_GUEST}">
+                    <li><a href="./?ctrl=Train&action=Favourites" class="<f:if condition="{ctrl} == 'Train' && {action} == 'Favourites'">active</f:if>">Favorisierte Fragen</a></li>
+                </f:if>
+                <li><a href="./?ctrl=Train&action=List" class="<f:if condition="{ctrl} == 'Train' && {action} == 'List'">active</f:if>">Liste aller Fragen</a></li>
+                <li><a href="/Tools/Import/SK-Fragenkatalog-BVA-2018-Antworten.pdf" target="_blank">Katalog download</a></li>
+            </ul>
+        </li>
+
+        <f:if condition="{userlevel} > {APPLICATION_USERLEVEL_GUEST}">
+            <li class="<f:if condition="{ctrl} == 'Statistics'">active</f:if>">
+                <a href="#statisticsSubmenu" data-toggle="collapse" aria-expanded="<f:if condition="{ctrl} == 'Statistics'"><f:then>true</f:then><f:else>false</f:else></f:if>"><i class="fa fa-pie-chart" aria-hidden="true"></i> Statistik &amp; Tools</a>
+                <ul class="collapse <f:if condition="{ctrl} == 'Statistics'">show</f:if> list-unstyled" id="statisticsSubmenu">
+                    <li><a href="./?ctrl=Statistics&action=Statistics" class="<f:if condition="{ctrl} == 'Statistics' && {action} == 'Statistics'">active</f:if>">Ihre Statistiken</a></li>
+                    <li><a href="./?ctrl=Statistics&action=Favourites" class="<f:if condition="{ctrl} == 'Statistics' && {action} == 'Favourites'">active</f:if>">Ihre Favoriten</a></li>
+                    <li><a href="./?ctrl=Statistics&action=Comments" class="<f:if condition="{ctrl} == 'Statistics' && {action} == 'Comments'">active</f:if>">Kommentare</a></li>
+                </ul>
+            </li>
+        </f:if>
+
+        <f:if condition="{userlevel} > {APPLICATION_USERLEVEL_GUEST}">
+            <li class="<f:if condition="{ctrl} == 'Settings'">active</f:if>">
+                <a href="#configSubmenu" data-toggle="collapse" aria-expanded="<f:if condition="{ctrl} == 'Settings'"><f:then>true</f:then><f:else>false</f:else></f:if>"><i class="fa fa-desktop" aria-hidden="true"></i> Einstellungen</a>
+                <ul class="collapse <f:if condition="{ctrl} == 'Settings'">show</f:if> list-unstyled" id="configSubmenu">
+                    <li><a href="./?ctrl=Settings&action=Settings" class="<f:if condition="{ctrl} == 'Settings' && {action} == 'Settings'">active</f:if>">Konfiguration</a></li>
+                </ul>
+            </li>
+        </f:if>
+
+        <f:if condition="{userlevel} >= {APPLICATION_USERLEVEL_ADMIN}">
+            <li class="<f:if condition="{ctrl} == 'Topics' || {ctrl} == 'Subtopics' || {ctrl} == 'Questions' || {ctrl} == 'Users'">active</f:if>">
+                <a href="#adminSubmenu" data-toggle="collapse" aria-expanded="<f:if condition="{ctrl} == 'Topics' || {ctrl} == 'Subtopics' || {ctrl} == 'Questions' || {ctrl} == 'Users'"><f:then>true</f:then><f:else>false</f:else></f:if>"><i class="fa fa-server" aria-hidden="true"></i> Administration</a>
+                <ul class="collapse <f:if condition="{ctrl} == 'Topics' || {ctrl} == 'Subtopics' || {ctrl} == 'Questions' || {ctrl} == 'Users'">show</f:if> list-unstyled" id="adminSubmenu">
+                    <li><a href="./?ctrl=Topics&action=Topics" class="<f:if condition="{ctrl} == 'Topics'">active</f:if>">Kapitel</a></li>
+                    <li><a href="./?ctrl=Subtopics&action=Subtopics" class="<f:if condition="{ctrl} == 'Subtopics'">active</f:if>">Gebiete</a></li>
+                    <li><a href="./?ctrl=Questions&action=Questions" class="<f:if condition="{ctrl} == 'Questions'">active</f:if>">Fragen</a></li>
+                    <li><a href="./?ctrl=Users&action=Users" class="<f:if condition="{ctrl} == 'Users'">active</f:if>">Benutzer</a></li>
+                </ul>
+            </li>
+        </f:if>
+
+    </ul>
+</nav>

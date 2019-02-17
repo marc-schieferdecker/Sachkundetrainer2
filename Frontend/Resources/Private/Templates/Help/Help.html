@@ -1,0 +1,111 @@
+{namespace c=LetsShoot\Sachkundetrainer\Frontend\ViewHelpers}
+
+<f:layout name="Loggedin"/>
+
+<f:section name="Main">
+    <nav class="navbar navbar-default searchform d-print-none d-none d-lg-table">
+        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 pull-left">
+            <h1>Hilfe</h1>
+        </div>
+    </nav>
+    <div class="container-fluid content">
+        <div class="row">
+            <div class="col-xl-12">
+                <f:if condition="{readmefile} == ''">
+                    <f:then>
+                        <ul class="nav nav-pills nav-fill" id="tabs" role="tablist">
+                            <li class="nav-item">
+                                <a onclick="resizeVideoPlayers()" class="nav-link active show" id="einführung-tab" data-toggle="tab" href="#einführung" role="tab" aria-controls="einführung" aria-expanded="true" aria-selected="true">Einführung</a>
+                            </li>
+                            <li class="nav-item">
+                                <a onclick="resizeVideoPlayers()" class="nav-link" id="abisz-tab" data-toggle="tab" href="#abisz" role="tab" aria-controls="abisz" aria-expanded="false" aria-selected="false">Stichworte von A-Z</a>
+                            </li>
+                            <li class="nav-item">
+                                <a onclick="resizeVideoPlayers()" class="nav-link" id="api-tab" data-toggle="tab" href="#api" role="tab" aria-controls="api" aria-expanded="false" aria-selected="false">API Dokumentation</a>
+                            </li>
+                        </ul>
+                        <script type="text/javascript">
+                            // <!-- resize videos in tabs on show
+                            $('.nav-tabs a').on('shown.bs.tab', function() {
+                                setTimeout(resizeVideoPlayers,100);
+                            });
+                            // -->
+                        </script>
+
+                        <div class="tab-content pill-content" id="myTabContent">
+
+                            <div class="tab-pane active show" id="einführung" role="tabpanel" aria-labelledby="einführung-tab">
+                                <div class="intro-documentation">
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <h2>Videoeinführung zum Waffensachkunde-Trainer</h2>
+                                            <div class="video">
+                                                <video poster="/Frontend/Resources/Public/videos/WSKTrainer.png" class="16-by-9 video-js vjs-default-skin vjs-big-play-centered" controls preload="none" width="720" height="480" data-setup="{}">
+                                                    <source src="/Frontend/Resources/Public/videos/WSKTrainer.mp4" type="video/mp4">
+                                                    <p class="vjs-no-js">Um das Video sehen zu können wechseln Sie bitte zu einem modernen Browser, der <a href="http://videojs.com/html5-video-support/" target="_blank">HTML5 unterstützt</a>!</p>
+                                                </video>
+                                            </div>
+                                            <p>
+                                                Bei Fragen zum Trainer, wenden Sie sich per E-Mail an <a href="mailto:ms@letsshootshow.de">ms@letsshootshow.de</a>.
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="tab-pane" id="abisz" role="tabpanel" aria-labelledby="abisz-tab">
+                                <div class="faq-documentation">
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <h2>Waffensachkunde-Trainer von A bis Z</h2>
+                                            <ul class="list-group list-group-flush">
+                                                <li class="list-group-item">
+                                                    <h3><a data-toggle="collapse" href="#faq1" aria-expanded="false" aria-controls="faq1">Anmeldung</a></h3>
+                                                    <div class="collapse" id="faq1">
+                                                        <div class="video">
+                                                            <video poster="/Frontend/Resources/Public/videos/WSKTrainer.png" class="16-by-9 video-js vjs-default-skin vjs-big-play-centered" controls preload="none" width="720" height="480" data-setup="{}">
+                                                                <source src="/Frontend/Resources/Public/videos/WSKTrainer.mp4" type="video/mp4">
+                                                                <p class="vjs-no-js">Um das Video sehen zu können wechseln Sie bitte zu einem modernen Browser, der <a href="http://videojs.com/html5-video-support/" target="_blank">HTML5 unterstützt</a>!</p>
+                                                            </video>
+                                                        </div>
+                                                    </div>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="tab-pane" id="api" role="tabpanel" aria-labelledby="api-tab">
+                                <div class="api-documentation">
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <div class="alert alert-danger">
+                                                <strong><u>Wichtig:</u></strong> Die API des Sachkundetrainers ist nur für NICHT KOMMERZIELLE Anwendungen frei verwendbar. Sollten Sie die API im Rahmen einer kommerziellen Anwendung nutzen wollen, <a href="mailto:ms@letsshootshow.de?subject=Sachkundetrainer%20kommerzielle%20Nutzung"><u>sprechen Sie mich an</u></a>! Wir finden gemeinsam sicherlich eine zufriedenstellende Lösung für beide Seiten. Sollte ich feststellen, dass die API nicht im korrekten Rahmen verwendet wird, werde ich die API Keys ohne Vorwarnung sperren.<br/><br/>
+                                                Marc Schieferdecker
+                                            </div>
+                                            <f:format.raw><c:mdparser file="{APPLICATION_DIRECTORY}/../Documentation/README.md"/></f:format.raw>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </f:then>
+                    <f:else>
+                        <div class="help">
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="text-right">
+                                        <a href="./?ctrl=Help" class="btn btn-primary">Zurück</a>
+                                    </div>
+                                    <f:format.raw><c:mdparser file="{APPLICATION_DIRECTORY}/../Documentation/{readmefile}"/></f:format.raw>
+                                </div>
+                            </div>
+                        </div>
+                    </f:else>
+                </f:if>
+            </div>
+        </div>
+    </div>
+</f:section>

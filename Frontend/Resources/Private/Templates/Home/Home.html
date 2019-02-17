@@ -1,0 +1,156 @@
+{namespace c=LetsShoot\Sachkundetrainer\Frontend\ViewHelpers}
+
+<f:layout name="Loggedin"/>
+
+<f:section name="Main">
+    <nav class="navbar navbar-default searchform d-print-none d-none d-lg-table">
+        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 pull-left">
+            <h1>Herzlich willkommen!</h1>
+            <span class="badge badge-secondary ml-2">v2.0-beta</span>
+        </div>
+    </nav>
+    <div class="container-fluid content">
+        <div class="row">
+            <div class="col-xl-12">
+                <div class="row">
+                    <div class="col-xl-7 col-lg-12 col-md-12 col-sm-12 mb-3">
+                        <h2>Über den Waffensachkunde-Trainer</h2>
+                        <p>Der Waffensachkunde-Trainer hilft Ihnen bei der Vorbereitung auf die Waffensachkundeprüfung. Er ist aber kein Garant, dass Sie die Prüfung auch bestehen, denn die Prüfungen laufen teilweise in unterschiedlicher Form ab. Ich biete Ihnen hier die Möglichkeit mit dem offiziellen aktuellen Fragenkatalog des BVA zu üben.</p>
+                        <p>Zudem bietet diese Software eine einfache API-Schnittstelle, so dass auch andere Entwickler auf die Datenbank zugreifen können und natürlich funktioniert die Software auch auf Tablet und Smartphone.</p>
+                        <p>Den Sachkundetrainer zu entwickeln und zu Pflegen ist viel Arbeit. Deswegen würde ich mich über eine kleine Spende freuen, wenn Sie Ihre Prüfung bestanden haben und den Trainer hilfreich fanden. Nachfolgend finden Sie einige Möglichkeiten mir ein kleines Dankeschön zukommen zu lassen.</p>
+                        <p>Viel Spaß mit dem Trainer und viel Erfolg bei Ihrer Waffensachkundeprüfung,</p>
+                        <p>Let's Shoot - Marc Schieferdecker</p>
+                        <div class="row">
+                            <f:comment>
+                                <div class="mt-3 col-xl-6 col-lg-6 col-md-12 col-sm-12">
+                                    <div class="card h-100">
+                                        <div class="donate">
+                                            <i class="fa fa-heart" aria-hidden="true"></i> Danke sagen!
+                                        </div>
+                                        <div class="card-body">
+                                            <h5 class="card-title">Sofortüberweisung</h5>
+                                            <p class="card-text">Einen beliebigen Betrag per Sofortüberweisung spenden.</p>
+                                            <form method="post" action="https://www.sofort.com/payment/start">
+                                                <input name="currency_id" type="hidden" value="EUR">
+                                                <input name="reason_1" type="hidden" value="Sachkundetrainer">
+                                                <input name="user_variable_0" type="hidden" value="{_user.user_id}"/>
+                                                <input name="user_id" type="hidden" value="179144">
+                                                <input name="project_id" type="hidden" value="482046">
+                                                <div>
+                                                    <input name="amount" type="text" value="5,00" size="4"> €
+                                                    <input type="submit" class="btn btn-success" value="Überweisung">
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </f:comment>
+                            <div class="mt-3 col-xl-6 col-lg-6 col-md-12 col-sm-12">
+                                <div class="card h-100">
+                                    <div class="donate">
+                                        <i class="fa fa-heart" aria-hidden="true"></i> Danke sagen!
+                                    </div>
+                                    <div class="card-body">
+                                        <h5 class="card-title">Paypal</h5>
+                                        <p class="card-text">Sie können einen beliebigen Betrag per Paypal spenden.</p>
+                                        <form action="https://www.paypal.com/cgi-bin/webscr" method="post">
+                                            <input type="hidden" name="cmd" value="_s-xclick"/>
+                                            <input type="hidden" name="item_name" value="Sachkundetrainer"/>
+                                            <input type="hidden" name="hosted_button_id" value="N3XHP4EAX49B8"/>
+                                            <input type="submit" class="btn btn-success" value="Paypal Spende"/>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mt-3 col-xl-6 col-lg-6 col-md-12 col-sm-12">
+                                <div class="card h-100">
+                                    <div class="donate">
+                                        <i class="fa fa-heart" aria-hidden="true"></i> Danke sagen!
+                                    </div>
+                                    <div class="card-body">
+                                        <h5 class="card-title">Überweisung</h5>
+                                        <p>Sie können natürlich auch ganz klassisch eine Überweisung tätigen. Verwenden Sie als Verwendungszweck bitte "Sachkundetrainer {_user.user_id}".</p>
+                                        <p>
+                                            Marc Schieferdecker<br/>
+                                            DE76 4476 1534 0025 9637 01<br/>
+                                            GENODEM1NRD
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="mt-3 col-xl-6 col-lg-6 col-md-12 col-sm-12">
+                                <div class="card h-100">
+                                    <div class="donate">
+                                        <i class="fa fa-heart" aria-hidden="true"></i> Danke sagen!
+                                    </div>
+                                    <div class="card-body">
+                                        <h5 class="card-title">Amazon Partner Programm</h5>
+                                        <p class="card-text">Sie können mich auch unterstützen, indem Sie vor dem nächsten Einkauf bei Amazon auf den Button klicken. Ich erhalte dann eine kleine Provision, ohne dass für Sie der Einkauf bei Amazon teurer wird.</p>
+                                        <a href="https://amzn.to/2E2PSlJ" class="btn btn-success">Bei Amazon einkaufen</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-5 col-lg-12 col-md-12 col-sm-12">
+                        <h3>Videoeinführung zum Waffensachkunde-Trainer</h3>
+                        <div class="video">
+                            <video poster="/Frontend/Resources/Public/videos/WSKTrainer.png" class="16-by-9 video-js vjs-default-skin vjs-big-play-centered" controls preload="none" width="509" height="287" data-setup="{}">
+                                <source src="/Frontend/Resources/Public/videos/WSKTrainer.mp4" type="video/mp4">
+                                <p class="vjs-no-js">Um das Video sehen zu können wechseln Sie bitte zu einem modernen Browser, der <a href="http://videojs.com/html5-video-support/" target="_blank">HTML5 unterstützt</a>!</p>
+                            </video>
+                        </div>
+                        <p>
+                            Bei Fragen, wenden Sie sich per E-Mail an <a href="mailto:ms@letsshootshow.de">ms@letsshootshow.de</a>.
+                        </p>
+                        <f:if condition="{comments}">
+                            <h3>Der neuste Kommentar</h3>
+                            <f:for each="{comments}" as="comment">
+                                <p>zur Frage: <em><a href="/Frontend/?ctrl=Train&action=Topics&id={comment.question.question_id}">{comment.question.question_number} <u>{comment.question.question_text}</u></a></em></p>
+                                <f:render partial="Comment/comment" arguments="{comment:comment}"/>
+                            </f:for>
+                        </f:if>
+                        <h3>Wichtige Links</h3>
+                        <ul>
+                            <li>
+                                <a href="./?ctrl=Help">Hilfe</a>
+                            </li>
+                            <li>
+                                <a href="mailto:ms@letsshootshow.de?subject=Supportanfrage%20Sackundetrainer">Support</a>
+                            </li>
+                        </ul>
+                        <h3>Changelog:</h3>
+                        <ul>
+                            <li>
+                                17.02.2019: Die "Kennwort vergessen" Funktion sendete keine Mails (Bugfix) und es wurden einige Verbesserungen bezüglich der Sicherheit implementiert (Danke Daniel!).
+                            </li>
+                            <li>
+                                09.01.2019: Kleiner Sicherheitspatch im Hilfe-Bereich (Danke Daniel!).
+                            </li>
+                            <li>
+                                02.01.2019: Frohes Neues Jahr! Kleiner Bugfix: Die Kommentare unter "Statistiken &amp; Tools" wurden nur dem Administrator angezeigt, nicht aber den registrierten Nutzern. Außerdem noch weitere kleinere Verbesserungen beim Handling von bereits beantworteten Fragen.
+                            </li>
+                            <li>
+                                22.12.2018: "Statistiken" in "Statistik &amp; Tools" umbenannt, Favoriten- und Kommentarliste hinzugefügt, Anzeige letzter Kommentar auf dem Home-Screen.
+                            </li>
+                            <li>
+                                20.12.2018: Das Einführungsvideo ist nun fertig.
+                            </li>
+                            <li>
+                                19.12.2018: Der WSK-Trainer ist nun öffentlich verfügbar.
+                            </li>
+                            <li>
+                                15.12.2018: Die Beta-Phase hat begonnen.
+                            </li>
+                            <li>
+                                04.12.2018: Die Arbeiten am neuen Sachkundetrainer haben begonnen.
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</f:section>

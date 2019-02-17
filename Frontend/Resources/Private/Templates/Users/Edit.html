@@ -1,0 +1,54 @@
+{namespace c=LetsShoot\Sachkundetrainer\Frontend\ViewHelpers}
+
+<f:layout name="Loggedin"/>
+
+<f:section name="Main">
+    <nav class="navbar navbar-default searchform d-print-none d-none d-lg-table">
+        <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 pull-left">
+            <h1>Benutzerverwaltung</h1>
+        </div>
+        <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 pull-right">
+            <f:render partial="Searchform/Default" arguments="{search_ctrl:'Users', search_action:'Users', string:string}"/>
+        </div>
+    </nav>
+    <div class="container-fluid content">
+        <div class="row">
+            <div class="col-xl-12">
+                <h3>Benutzer bearbeiten</h3>
+                <hr/>
+                <f:if condition="{error}">
+                    <f:then>
+                        <f:format.raw>{error}</f:format.raw>
+                    </f:then>
+                    <f:else>
+                        <form method="post" id="updateform" action="/Frontend/" enctype="multipart/form-data">
+                            <input type="hidden" name="ctrl" value="Users"/>
+                            <input type="hidden" name="action" value="Edit"/>
+                            <input type="hidden" name="id" value="{user.user_id}"/>
+                            <input type="hidden" name="save" value="true"/>
+                            <div class="row submitrow">
+                                <div class="col text-right">
+                                    <button type="button" class="btn btn-secondary" style="margin-right: 4px" onclick="ajaxForm('updateform','Zwischenspeichern erfolgreich.'); $(this).blur(); return false;">Zwischenspeichern</button>
+                                    <button type="submit" class="btn btn-primary">Speichern</button>
+                                </div>
+                            </div>
+                            <f:render partial="User/FormFields" arguments="{_all}"/>
+                        </form>
+                        <h3 class="mt-5">API-Schlüssel</h3>
+                        <hr/>
+                        <div class="row">
+                            <div class="col-xl-9 col-lg-10 col-md-12 col-sm-12 col-12">
+                                <div class="alert alert-success">
+                                    <p>Der derzeitige API Schlüssel des Benutzers lautet <strong>{user.user_api_key}</strong></p>
+                                    <button type="button" class="btn btn-success" onclick="getApiKeyFile('{user.user_api_key}','citkonotes-user-api-key.txt', 'text');">API Schlüssel downloaden</button>
+                                    <a href="?ctrl=Users&action=CreateApikey&id={user.user_id}" class="btn btn-danger confirm" confirmation-message="Wirklich einen neuen Schlüssel erzeugen? Der alte Schlüssel wird ungültig!">Neuen API Schlüssel erzeugen</a>
+                                </div>
+                            </div>
+                        </div>
+
+                    </f:else>
+                </f:if>
+            </div>
+        </div>
+    </div>
+</f:section>

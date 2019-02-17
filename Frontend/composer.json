@@ -1,0 +1,21 @@
+{
+  "name": "LetsShoot/Sachkundetrainer-User-Frontend",
+  "description": "Waffen-Sachkundetrainer",
+  "minimum-stability": "stable",
+  "license": "proprietary",
+  "authors": [
+    {
+      "name": "Marc Schieferdecker",
+      "email": "ms@letsshootshow.de"
+    }
+  ],
+  "require": {
+    "php": "^7.2",
+    "typo3fluid/fluid": "^2.5.3"
+  },
+  "autoload": {
+    "psr-4": {
+      "LetsShoot\\Sachkundetrainer\\Frontend\\": "Classes"
+    }
+  }
+}

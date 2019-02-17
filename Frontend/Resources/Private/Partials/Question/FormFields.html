@@ -1,0 +1,185 @@
+<div class="form-group row">
+    <div class="col-xl-3 col-lg-3 col-md-4 col-sm-4">
+        <label for="question_topic_id">Gehört zum Kapitel</label>
+    </div>
+    <div class="col-xl-4 col-lg-4 col-md-6 col-sm-8">
+        <select name="question_topic_id" id="question_topic_id" class="form-control selectpicker show-tick" data-live-search="true">
+            <f:render partial="Topic/Options" arguments="{selected_id:question.question_topic_id, topics:topics}"/>
+        </select>
+    </div>
+</div>
+<div class="form-group row">
+    <div class="col-xl-3 col-lg-3 col-md-4 col-sm-4">
+        <label for="question_subtopic_id">Gehört zum Gebiet</label>
+    </div>
+    <div class="col-xl-4 col-lg-4 col-md-6 col-sm-8">
+        <select name="question_subtopic_id" id="question_subtopic_id" class="form-control selectpicker show-tick" data-live-search="true">
+            <option value="0">-- keine Angabe --</option>
+            <f:render partial="Subtopic/Options" arguments="{selected_id:question.question_subtopic_id, subtopics:subtopics}"/>
+        </select>
+    </div>
+</div>
+<div class="form-group row">
+    <div class="col-xl-3 col-lg-3 col-md-4 col-sm-4">
+        <label for="question_text">Nummer</label>
+    </div>
+    <div class="col-xl-3 col-lg-3 col-md-6 col-sm-8">
+        <input type="text" id="question_number" name="question_number" required="required" value="{question.question_number}" placeholder="Nummer der Frage im BVA Katalog" class="form-control"/>
+    </div>
+</div>
+<div class="form-group row">
+    <div class="col-xl-3 col-lg-3 col-md-4 col-sm-4">
+        <label for="question_text">Frage</label>
+    </div>
+    <div class="col-xl-6 col-lg-6 col-md-8 col-sm-8">
+        <textarea id="question_text" name="question_text" required="required" placeholder="Fragetext" class="form-control" style="height:150px" onchange="formatText($(this))">{question.question_text}</textarea>
+    </div>
+</div>
+<div class="form-group row">
+    <div class="col-xl-3 col-lg-3 col-md-4 col-sm-4">
+        <label for="question_count_wrong">Anzahl falsch beantwortet</label>
+    </div>
+    <div class="col-xl-2 col-lg-3 col-md-6 col-sm-8">
+        <input type="number" id="question_count_wrong" name="question_count_wrong" value="{question.question_count_wrong}" placeholder="0" class="form-control"/>
+    </div>
+</div>
+<div class="form-group row">
+    <div class="col-xl-3 col-lg-3 col-md-4 col-sm-4">
+        <label for="question_count_right">Anzahl richtig beantwortet</label>
+    </div>
+    <div class="col-xl-2 col-lg-3 col-md-6 col-sm-8">
+        <input type="number" id="question_count_right" name="question_count_right" value="{question.question_count_right}" placeholder="0" class="form-control"/>
+    </div>
+</div>
+
+<f:if condition="{question.answeres}">
+    <f:then>
+        <h3>Antworten</h3>
+        <div id="answere_container">
+            <f:for each="{question.answeres}" as="answere" iteration="it">
+                <input type="hidden" name="answere[answere_id][]" value="{answere.answere_id}"/>
+                <fieldset>
+                    <legend>Antwort</legend>
+                    <div class="form-group row">
+                        <div class="col-xl-3 col-lg-3 col-md-4 col-sm-4">
+                            <label>Nummer</label>
+                        </div>
+                        <div class="col-xl-2 col-lg-3 col-md-4 col-sm-8">
+                            <input type="text" name="answere[answere_number][]" value="{answere.answere_number}" placeholder="Nummer der Antwort" class="form-control"/>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-xl-3 col-lg-3 col-md-4 col-sm-4">
+                            <label>Anwort (multiple choice)</label>
+                        </div>
+                        <div class="col-xl-6 col-lg-6 col-md-8 col-sm-8">
+                            <textarea name="answere[answere_choice][]" placeholder="Antworttext" class="form-control" style="height:100px" onchange="formatText($(this))">{answere.answere_choice}</textarea>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-xl-3 col-lg-3 col-md-4 col-sm-4">
+                            <label>Antwort (Text)</label>
+                        </div>
+                        <div class="col-xl-6 col-lg-6 col-md-8 col-sm-8">
+                            <textarea name="answere[answere_text][]" placeholder="Antworttext" class="form-control" style="height:100px" onchange="formatText($(this))">{answere.answere_text}</textarea>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-xl-3 col-lg-3 col-md-4 col-sm-4">
+                            <label>Richtige Antwort?</label>
+                        </div>
+                        <div class="col-xl-2 col-lg-3 col-md-6 col-sm-8">
+                            <select name="answere[answere_correct][]" class="form-control">
+                                <f:if condition="{answere.answere_correct}">
+                                    <f:then>
+                                        <option value="1" selected="selected">Ja</option>
+                                        <option value="0">Nein</option>
+                                    </f:then>
+                                    <f:else>
+                                        <option value="1">Ja</option>
+                                        <option value="0" selected="selected">Nein</option>
+                                    </f:else>
+                                </f:if>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-xl-3 col-lg-3 col-md-4 col-sm-4">
+                            <label>Diese Antwort löschen?</label>
+                        </div>
+                        <div class="col-xl-2 col-lg-3 col-md-6 col-sm-8">
+                            <select name="answere[delete][]" class="form-control">
+                                <option value="0">Nein</option>
+                                <option value="1">Ja</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-xl-3 col-lg-3 col-md-4 col-sm-4">
+                        </div>
+                        <div class="col-xl-9 col-lg-9 col-md-8 col-sm-8">
+                            <f:if condition="{it.isLast}">
+                                <a href="javascript:void(0)" onclick="$('#answere_container').append($(this).parent().parent().parent().clone()); $(this).remove();" class="btn btn-success">+ Noch eine Antwort</a>
+                            </f:if>
+                        </div>
+                    </div>
+                </fieldset>
+            </f:for>
+        </div>
+    </f:then>
+    <f:else>
+        <h3>Es sind noch keine Antworten vorhanden</h3>
+        <div id="answere_container">
+            <fieldset>
+                <legend>Antwort anlegen</legend>
+                <div class="form-group row">
+                    <div class="col-xl-3 col-lg-3 col-md-4 col-sm-4">
+                        <label>Nummer</label>
+                    </div>
+                    <div class="col-xl-2 col-lg-3 col-md-4 col-sm-8">
+                        <div class="input-group">
+                            <input type="text" name="answere[answere_number][]" placeholder="Nummer der Antwort" value="a)" class="form-control"/>
+                            <div class="input-group-append">
+                                <a href="javascript:void(0)" onclick="incAnswereNumber($(this).parent().prev()); $(this).blur();" class="btn btn-secondary"><i class="fa fa-plus" aria-hidden="true"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-xl-3 col-lg-3 col-md-4 col-sm-4">
+                        <label>Anwort (multiple choice)</label>
+                    </div>
+                    <div class="col-xl-6 col-lg-6 col-md-8 col-sm-8">
+                        <textarea name="answere[answere_choice][]" placeholder="Antworttext" class="form-control" style="height:100px" onchange="formatText($(this))" onclick="$(this).select()"></textarea>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-xl-3 col-lg-3 col-md-4 col-sm-4">
+                        <label>Antwort (Text)</label>
+                    </div>
+                    <div class="col-xl-6 col-lg-6 col-md-8 col-sm-8">
+                        <textarea name="answere[answere_text][]" placeholder="Antworttext" class="form-control" style="height:100px" onchange="formatText($(this))" onclick="$(this).select()"></textarea>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-xl-3 col-lg-3 col-md-4 col-sm-4">
+                        <label>Richtige Antwort?</label>
+                    </div>
+                    <div class="col-xl-2 col-lg-3 col-md-6 col-sm-8">
+                        <select name="answere[answere_correct][]" class="form-control">
+                            <option value="0">Nein</option>
+                            <option value="1">Ja</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-xl-3 col-lg-3 col-md-4 col-sm-4">
+                    </div>
+                    <div class="col-xl-9 col-lg-9 col-md-8 col-sm-8">
+                        <a href="javascript:void(0)" onclick="$('#answere_container').append($(this).parent().parent().parent().clone()); $(this).remove();" class="btn btn-success">+ Noch eine Antwort</a>
+                    </div>
+                </div>
+            </fieldset>
+        </div>
+    </f:else>
+</f:if>

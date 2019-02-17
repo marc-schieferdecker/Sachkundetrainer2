@@ -1,0 +1,6 @@
+Options +FollowSymLinks
+
+# Apache rewrite rules
+RewriteEngine On
+RewriteCond %{REQUEST_URI} ^/Backend/Api/(.*)/$
+RewriteRule ^(.*) /Backend/Api/$1.php [L,QSA]

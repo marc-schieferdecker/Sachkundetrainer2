@@ -1,0 +1,54 @@
+{namespace c=LetsShoot\Sachkundetrainer\Frontend\ViewHelpers}
+
+<f:layout name="Loggedin"/>
+
+<f:section name="Main">
+    <nav class="navbar navbar-default searchform d-print-none d-none d-lg-table">
+        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 pull-left">
+            <h1>Ihre Favouriten</h1>
+        </div>
+    </nav>
+    <div class="container-fluid content">
+        <div class="row">
+            <div class="col-xl-12">
+                <f:if condition="{error}">
+                    <f:then>
+                        <f:format.raw>{error}</f:format.raw>
+                    </f:then>
+                    <f:else>
+                        <h2>Ihre favorisierten Fragen</h2>
+                        <f:if condition="{favourites}">
+                            <f:then>
+                                <p>Hier finden Sie alle von Ihnen favorisierten Fragen.</p>
+                                <table class="table table-striped">
+                                    <thead>
+                                    <tr>
+                                        <th>Frage</th><th></th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                        <f:for each="{favourites}" as="favourite">
+                                            <tr>
+                                                <td>
+                                                    <a href="/Frontend/?ctrl=Train&action=Topics&id={favourite.question.question_id}">
+                                                        {favourite.question.question_number} {favourite.question.question_text}
+                                                    </a>
+                                                </td>
+                                                <td>
+                                                    <a href="javascript:void(0)" onclick="removeFavourite('{favourite.question.question_id}'); $(this).parent().parent().remove();"><i class="fa fa-star" aria-hidden="true"></i> entfernen</a>
+                                                </td>
+                                            </tr>
+                                        </f:for>
+                                    </tbody>
+                                </table>
+                            </f:then>
+                            <f:else>
+                                <p>Leider haben Sie noch keine Fragen favorisiert.</p>
+                            </f:else>
+                        </f:if>
+                    </f:else>
+                </f:if>
+            </div>
+        </div>
+    </div>
+</f:section>

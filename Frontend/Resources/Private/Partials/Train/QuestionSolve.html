@@ -1,0 +1,103 @@
+{namespace c=LetsShoot\Sachkundetrainer\Frontend\ViewHelpers}
+
+<form method="post" id="questionform" action="/Frontend/" enctype="multipart/form-data">
+    <input type="hidden" name="ctrl" value="Train"/>
+    <input type="hidden" name="action" value="{return}"/>
+    <input type="hidden" name="topic_id" value="{topic_id}"/>
+    <input type="hidden" name="subtopic_id" value="{subtopic_id}"/>
+    <h2 class="mb-3">
+        Ihre Anwort:
+        <f:if condition="{result}">
+            <f:then>
+                <div class="alert alert-success mt-2">
+                    RICHTIG! <i class="fa fa-thumbs-up" aria-hidden="true"></i>
+                </div>
+            </f:then>
+            <f:else>
+                <div class="alert alert-danger mt-2">
+                    FALSCH! <i class="fa fa-thumbs-down" aria-hidden="true"></i>
+                </div>
+            </f:else>
+        </f:if>
+    </h2>
+    <div class="row">
+        <div class="col-xl-9 col-lg-9 col-md-10 col-sm-10">
+            <div class="card">
+                <div class="card-header">
+                    <div class="row">
+                        <div class="col-12">
+                            <h2>{question.topic.topic_number} - {question.topic.topic_name}</h2>
+                            <f:if condition="{question.subtopic.subtopic_number}">
+                                <h3>{question.subtopic.subtopic_number} {question.subtopic.subtopic_name}</h3>
+                            </f:if>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <p class="lead font-weight-bold">{question.question_number} {question.question_text}</p>
+                    <f:if condition="{question.answeres}">
+                        <div class="list-group">
+                        <f:for each="{question.answeres}" as="answere">
+                            <f:if condition="{answere.answere_text}">
+                                <f:then>
+                                    <div class="list-group-item list-group-item-secondary">Dies war keine Multiple-Choice Antwort, sondern eine reine Textfrage, die Sie auswendig lernen müssen.</div>
+                                    <div class="list-group-item lead">{answere.answere_number} {answere.answere_text}</div>
+                                </f:then>
+                                <f:else>
+                                    <div class="list-group-item text-white <f:if condition="({answere.answere_correct} && {answeres.{answere.answere_id}}) || (!{answere.answere_correct} && !{answeres.{answere.answere_id}})"><f:then>bg-success</f:then><f:else>bg-danger</f:else></f:if>">
+                                        <div class="row">
+                                            <div class="col-10">
+                                                {answere.answere_number} {answere.answere_choice}
+                                            </div>
+                                            <div class="col-2">
+                                                <f:if condition="{answere.answere_correct}">
+                                                    <f:then>
+                                                        <i class="fa fa-check" aria-hidden="true" style="width:16px"></i>
+                                                    </f:then>
+                                                    <f:else>
+                                                        <i class="fa fa-square-o" aria-hidden="true" style="width:16px"></i>
+                                                    </f:else>
+                                                </f:if>
+                                                <f:if condition="{answeres.{answere.answere_id}}">
+                                                    <f:then>
+                                                        <input type="checkbox" name="answeres[{answere.answere_id}]" checked="checked"/>
+                                                    </f:then>
+                                                    <f:else>
+                                                        <input type="checkbox" name="answeres[{answere.answere_id}]"/>
+                                                    </f:else>
+                                                </f:if>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </f:else>
+                            </f:if>
+                        </f:for>
+                        </div>
+                    </f:if>
+                </div>
+                <div class="card-footer">
+                    <input type="submit" class="btn btn-success" value="Weiter"/>
+                    <f:if condition="{userlevel} > {APPLICATION_USERLEVEL_GUEST}">
+                        <f:if condition="{favourites} == false">
+                            <f:then>
+                                <a href="javascript:void(0)" onclick="addFavourite('{question.question_id}'); $(this).remove();"><i class="fa fa-star-o" aria-hidden="true"></i> Frage favorisieren</a>
+                            </f:then>
+                            <f:else>
+                                <c:arraycontains haystack="{favourites}" needle="{question.question_id}" field="question_id" type="int">
+                                    <f:then>
+                                        <a href="javascript:void(0)" onclick="removeFavourite('{question.question_id}'); $(this).remove();"><i class="fa fa-star" aria-hidden="true"></i> Favorit entfernen</a>
+                                    </f:then>
+                                    <f:else>
+                                        <a href="javascript:void(0)" onclick="addFavourite('{question.question_id}'); $(this).remove();"><i class="fa fa-star-o" aria-hidden="true"></i> Frage favorisieren</a>
+                                    </f:else>
+                                </c:arraycontains>
+                            </f:else>
+                        </f:if>
+                    </f:if>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+<f:render partial="Comment/comments" arguments="{_all}"/>

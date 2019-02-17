@@ -1,0 +1,29 @@
+{namespace c=LetsShoot\Sachkundetrainer\Frontend\ViewHelpers}
+
+<f:layout name="Loggedin"/>
+
+<f:section name="Main">
+    <nav class="navbar navbar-default searchform d-print-none d-none d-lg-table">
+        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 pull-left">
+            <h1>Favorisierte Fragen üben</h1>
+        </div>
+    </nav>
+    <div class="container-fluid content">
+        <div class="row">
+            <div class="col-xl-12">
+                <f:if condition="{error}">
+                    <f:then>
+                        <h2>Fehler</h2>
+                        <p>Sie scheinen noch keine Fragen als Favoriten markiert zu haben.</p>
+                        <p>Wenn Sie eine Frage als Favorite hinzufügen wollen, dann klicken Sie auf der Frage- oder Lösungsseite bitte auf den Link "Frage favorisieren".</p>
+                        <p>Natürlich können Sie favorisierte Fragen auch jederzeit wieder als Favorit entfernen.</p>
+                        <div><img  class="img-fluid img-thumbnail" src="/Frontend/Resources/Public/images/screenshot-favorisieren.png"/></div>
+                    </f:then>
+                    <f:else>
+                        <f:render partial="Train/QuestionForm" arguments="{_all}"/>
+                    </f:else>
+                </f:if>
+            </div>
+        </div>
+    </div>
+</f:section>

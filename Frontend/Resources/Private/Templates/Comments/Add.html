@@ -1,0 +1,21 @@
+<f:layout name="Nolayout" />
+
+<f:section name="Main">
+    <f:if condition="{error}">
+        <f:then>
+            <script>modalAlert('Beim Hinzufügen des Kommentars ist irgendwas schiefgelaufen.','Fehler');</script>
+        </f:then>
+        <f:else>
+            <f:render partial="Comment/comment" arguments="{comment:comment}"/>
+            <script>
+                modalAlert('Der Kommentar wurde hinzugefügt.','Danke');
+                if($('#commentList')) {
+                    $('#commentList').collapse("show");
+                }
+                if($('#comment_text')) {
+                    $('#comment_text').val('');
+                }
+            </script>
+        </f:else>
+    </f:if>
+</f:section>

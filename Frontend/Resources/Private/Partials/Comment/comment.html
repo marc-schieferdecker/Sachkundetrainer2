@@ -1,0 +1,14 @@
+{namespace c=LetsShoot\Sachkundetrainer\Frontend\ViewHelpers}
+
+<f:if condition="{comment}">
+    <div class="list-group comment mb-3">
+        <div class="list-group-item list-group-item-secondary">
+           Am <c:date format="d.m.y H:i" timestamp="{comment.comment_timestamp}"/> von {comment.user.user_name}
+        </div>
+        <div class="list-group-item">
+            <p class="comment-text">
+                <c:nl2br>{comment.comment_text}</c:nl2br>
+            </p>
+        </div>
+    </div>
+</f:if>

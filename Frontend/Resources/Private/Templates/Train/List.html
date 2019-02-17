@@ -1,0 +1,47 @@
+{namespace c=LetsShoot\Sachkundetrainer\Frontend\ViewHelpers}
+
+<f:layout name="Loggedin"/>
+
+<f:section name="Main">
+    <nav class="navbar navbar-default searchform d-print-none d-none d-lg-table">
+        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 pull-left">
+            <h1>Alle Fragen des BVA Fragenkatalogs</h1>
+        </div>
+    </nav>
+    <div class="container-fluid content">
+        <div class="row">
+            <div class="col-xl-12">
+                <f:if condition="{error}">
+                    <f:then>
+                        <f:format.raw>{error}</f:format.raw>
+                    </f:then>
+                    <f:else>
+                        <p>Hinweis: Der Waffensachkunde-Trainer enthält nicht das Kapitel IV "Not- und Seenotsignalmittel", da dieses für Waffensachkundeprüfung für Sportschützen nicht relevant ist. Sollte dieser Bereich in Ihrer Prüfung dennoch behandelt werden, sprechen Sie mit Ihrem Sachkundelehrer darüber, ob das wirklich notwendig ist.</p>
+                        <f:for each="{topics}" as="topic">
+                            <h2 class="mt-5">{topic.topic_number} {topic.topic_name}</h2>
+                            <table class="table table-striped datatable" datatable-ordering="1" datatable-paging="1" datatable-order-column="0" datatable-searching="1">
+                                <thead class="thead-inverse"><tr><th>Nr.</th><th>Frage</th></tr></thead>
+                                <f:for each="{questions}" as="question">
+                                    <f:if condition="{question.question_topic_id} == {topic.topic_id}">
+                                        <tr>
+                                            <td>
+                                                <a href="/Frontend/?ctrl=Train&action=Topics&id={question.question_id}">
+                                                    {question.question_number}
+                                                </a>
+                                            </td>
+                                            <td>
+                                                <a href="/Frontend/?ctrl=Train&action=Topics&id={question.question_id}">
+                                                    {question.question_text}
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    </f:if>
+                                </f:for>
+                            </table>
+                        </f:for>
+                    </f:else>
+                </f:if>
+            </div>
+        </div>
+    </div>
+</f:section>

@@ -1,0 +1,3 @@
+<f:for each="{questions}" as="q">
+    <option value="{q.question_id}" <f:if condition="{q.question_id} == {selected_id}">selected="selected"</f:if>>{q.question_number} {q.question_text}</option>
+</f:for>

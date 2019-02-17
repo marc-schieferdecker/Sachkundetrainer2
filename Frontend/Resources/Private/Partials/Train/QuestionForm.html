@@ -1,0 +1,92 @@
+{namespace c=LetsShoot\Sachkundetrainer\Frontend\ViewHelpers}
+
+<form method="post" id="questionform" action="/Frontend/" enctype="multipart/form-data">
+    <input type="hidden" name="ctrl" value="Train"/>
+    <input type="hidden" name="action" value="Solve"/>
+    <input type="hidden" name="return" value="{action}"/>
+    <input type="hidden" name="id" value="{question.question_id}"/>
+    <input type="hidden" name="topic_id" value="{topic_id}"/>
+    <input type="hidden" name="subtopic_id" value="{subtopic_id}"/>
+    <div class="row">
+        <div class="col-xl-9 col-lg-9 col-md-10 col-sm-10">
+            <div class="card">
+                <div class="card-header">
+                    <div class="row">
+                        <div class="col-12">
+                            <h2>{question.topic.topic_number} - {question.topic.topic_name}</h2>
+                            <f:if condition="{question.subtopic.subtopic_number}">
+                                <h3>{question.subtopic.subtopic_number} {question.subtopic.subtopic_name}</h3>
+                            </f:if>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <p class="lead font-weight-bold">{question.question_number} {question.question_text}</p>
+                    <f:if condition="{question.answeres}">
+                        <div class="list-group">
+                        <f:for each="{question.answeres}" as="answere">
+                            <f:if condition="{answere.answere_text}">
+                                <f:then>
+                                    <div class="list-group-item list-group-item-secondary"><small>Dies ist keine Multiple-Choice Antwort. Sie müssen den folgenden Text auswendig kennen, was wir aber mit diesem Trainer unmöglich prüfen können.</small><br/><strong>Für die Statistik: Hätten Sie es gewusst?</strong></div>
+                                    <div class="list-group-item lead">
+                                        <div class="row">
+                                            <div class="col-10" onclick="$(this).parent().find('input').prop('checked', !$(this).parent().find('input').prop('checked'))">
+                                                {answere.answere_number} {answere.answere_text}
+                                            </div>
+                                            <div class="col-2">
+                                                <input type="checkbox" name="answeres[{answere.answere_id}]"/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </f:then>
+                                <f:else>
+                                    <div class="list-group-item">
+                                        <div class="row">
+                                            <div class="col-10" onclick="$(this).parent().find('input').prop('checked', !$(this).parent().find('input').prop('checked'))">
+                                                {answere.answere_number} {answere.answere_choice}
+                                            </div>
+                                            <div class="col-2">
+                                                <input type="checkbox" name="answeres[{answere.answere_id}]"/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </f:else>
+                            </f:if>
+                        </f:for>
+                        </div>
+                    </f:if>
+                </div>
+                <div class="card-footer">
+                    <input type="submit" class="btn btn-success" value="Lösen" id="questionsubmit"/>
+                    <f:if condition="{_user.user_config.timelimit_to_answere}">
+                        <script>
+                            var initSeconds = {_user.user_config.timelimit_to_answere};
+                            $(window).on('load',function(){
+                                timedSubmitInit(initSeconds,$('#questionsubmit'));
+                            });
+                        </script>
+                    </f:if>
+                    <f:if condition="{userlevel} > {APPLICATION_USERLEVEL_GUEST}">
+                        <f:if condition="{favourites} == false">
+                            <f:then>
+                                <a href="javascript:void(0)" onclick="addFavourite('{question.question_id}'); $(this).remove();"><i class="fa fa-star-o" aria-hidden="true"></i> Frage favorisieren</a>
+                            </f:then>
+                            <f:else>
+                                <c:arraycontains haystack="{favourites}" needle="{question.question_id}" field="question_id" type="int">
+                                    <f:then>
+                                        <a href="javascript:void(0)" onclick="removeFavourite('{question.question_id}'); $(this).remove();"><i class="fa fa-star" aria-hidden="true"></i> Favorit entfernen</a>
+                                    </f:then>
+                                    <f:else>
+                                        <a href="javascript:void(0)" onclick="addFavourite('{question.question_id}'); $(this).remove();"><i class="fa fa-star-o" aria-hidden="true"></i> Frage favorisieren</a>
+                                    </f:else>
+                                </c:arraycontains>
+                            </f:else>
+                        </f:if>
+                    </f:if>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+<f:render partial="Comment/comments" arguments="{_all}"/>
