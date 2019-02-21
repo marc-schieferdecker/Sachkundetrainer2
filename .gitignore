@@ -1,4 +1,4 @@
 # .gitignore
-.idea/
-Frontend/Resources/Public/videos/*.mp4
+/.idea/
+/Frontend/Resources/Public/videos/*.mp4
 
