@@ -639,8 +639,8 @@
          */
         public function countAll(array $whereParams = array(), string $logical = 'AND', array $restrictParams = array()) {
             $Execute = array();
-            $Execute[':orderfield'] = $this->config['orderfield'];
-            $Execute[':orderby'] = $this->config['orderby'];
+            $orderfield = preg_replace('/[ ]+/', '', $this->config['orderfield']);
+            $orderby = preg_replace('/[ ]+/', '', $this->config['orderby']);
 
             // Build restrict parameters
             $RestrictWhereConditions = array();
@@ -700,18 +700,18 @@
                 }
                 $params = implode( " $logical ", $WhereConditions );
                 if(empty($this->config['idfield'])) {
-                    $sql = "SELECT " . $this->config['datatable'] . "." . $this->config['idfield'] . " FROM " . $this->config['datatable'] . " " . $join_sql . " WHERE (" . $params . ") AND $restrict $add_where_sql ORDER BY :orderfield :orderby " . $limit_sql . ";";
+                    $sql = "SELECT " . $this->config['datatable'] . "." . $this->config['idfield'] . " FROM " . $this->config['datatable'] . " " . $join_sql . " WHERE (" . $params . ") AND $restrict $add_where_sql ORDER BY $orderfield $orderby " . $limit_sql . ";";
                 }
                 else {
-                    $sql = "SELECT " . $this->config['datatable'] . "." . $this->config['idfield'] . " FROM " . $this->config['datatable'] . " " . $join_sql . " WHERE (" . $params . ") AND $restrict $add_where_sql GROUP BY " . $this->config['datatable'] . "." . $this->config['idfield'] . " ORDER BY :orderfield :orderby " . $limit_sql . ";";
+                    $sql = "SELECT " . $this->config['datatable'] . "." . $this->config['idfield'] . " FROM " . $this->config['datatable'] . " " . $join_sql . " WHERE (" . $params . ") AND $restrict $add_where_sql GROUP BY " . $this->config['datatable'] . "." . $this->config['idfield'] . " ORDER BY $orderfield $orderby " . $limit_sql . ";";
                 }
             }
             else {
                 if(empty($this->config['idfield'])) {
-                    $sql = "SELECT " . $this->config['datatable'] . "." . $this->config['idfield'] . " FROM " . $this->config['datatable'] . " " . $join_sql . " WHERE $restrict $add_where_sql ORDER BY :orderfield :orderby " . $limit_sql . ";";
+                    $sql = "SELECT " . $this->config['datatable'] . "." . $this->config['idfield'] . " FROM " . $this->config['datatable'] . " " . $join_sql . " WHERE $restrict $add_where_sql ORDER BY $orderfield $orderby " . $limit_sql . ";";
                 }
                 else {
-                    $sql = "SELECT " . $this->config['datatable'] . "." . $this->config['idfield'] . " FROM " . $this->config['datatable'] . " " . $join_sql . " WHERE $restrict $add_where_sql GROUP BY " . $this->config['datatable'] . "." . $this->config['idfield'] . " ORDER BY :orderfield :orderby " . $limit_sql . ";";
+                    $sql = "SELECT " . $this->config['datatable'] . "." . $this->config['idfield'] . " FROM " . $this->config['datatable'] . " " . $join_sql . " WHERE $restrict $add_where_sql GROUP BY " . $this->config['datatable'] . "." . $this->config['idfield'] . " ORDER BY $orderfield $orderby " . $limit_sql . ";";
                 }
             }
             $this->getLogger()->Log(APPLICATION_LOG_LEVEL_DEBUG, $sql);
@@ -847,8 +847,8 @@
          */
         public function findAll(array $whereParams = array(), string $logical = 'AND', array $restrictParams = array()) {
             $Execute = array();
-            $Execute[':orderfield'] = $this->config['orderfield'];
-            $Execute[':orderby'] = $this->config['orderby'];
+            $orderfield = preg_replace('/[ ]+/', '', $this->config['orderfield']);
+            $orderby = preg_replace('/[ ]+/', '', $this->config['orderby']);
 
             // Build restrict parameters
             $RestrictWhereConditions = array();
@@ -909,37 +909,37 @@
                 }
                 $params = implode( " $logical ", $WhereConditions );
                 if(empty($this->config['idfield'])) {
-                    $sql = "SELECT " . $this->config['datatable'] . ".* $add_select_sql FROM " . $this->config['datatable'] . " " . $join_sql . " WHERE (" . $params . ") AND $restrict $add_where_sql ORDER BY :orderfield :orderby " . $limit_sql . ";";
+                    $sql = "SELECT " . $this->config['datatable'] . ".* $add_select_sql FROM " . $this->config['datatable'] . " " . $join_sql . " WHERE (" . $params . ") AND $restrict $add_where_sql ORDER BY $orderfield $orderby " . $limit_sql . ";";
                 }
                 else {
                     if($this->config['order_with_subselect']) {
                         $sql = "SELECT * FROM (
-                              SELECT " . $this->config['datatable'] . ".* $add_select_sql FROM " . $this->config['datatable'] . " " . $join_sql . " WHERE (" . $params . ") AND $restrict $add_where_sql ORDER BY :orderfield
+                              SELECT " . $this->config['datatable'] . ".* $add_select_sql FROM " . $this->config['datatable'] . " " . $join_sql . " WHERE (" . $params . ") AND $restrict $add_where_sql ORDER BY $orderfield
                             ) AS " . $this->config['datatable'] . "
                             GROUP BY " . $this->config['datatable'] . "." . $this->config['idfield'] . "
-                            ORDER BY " . $this->config['orderfield_subselect'] . " :orderby " . $limit_sql . "
+                            ORDER BY " . $this->config['orderfield_subselect'] . " $orderby " . $limit_sql . "
                         ;";
                     }
                     else {
-                        $sql = "SELECT " . $this->config['datatable'] . ".* $add_select_sql FROM " . $this->config['datatable'] . " " . $join_sql . " WHERE (" . $params . ") AND $restrict $add_where_sql GROUP BY " . $this->config['datatable'] . "." . $this->config['idfield'] . " ORDER BY :orderfield :orderby " . $limit_sql . ";";
+                        $sql = "SELECT " . $this->config['datatable'] . ".* $add_select_sql FROM " . $this->config['datatable'] . " " . $join_sql . " WHERE (" . $params . ") AND $restrict $add_where_sql GROUP BY " . $this->config['datatable'] . "." . $this->config['idfield'] . " ORDER BY $orderfield $orderby " . $limit_sql . ";";
                     }
                 }
             }
             else {
                 if(empty($this->config['idfield'])) {
-                    $sql = "SELECT " . $this->config['datatable'] . ".* $add_select_sql FROM " . $this->config['datatable'] . " " . $join_sql . " WHERE $restrict $add_where_sql ORDER BY :orderfield :orderby " . $limit_sql . ";";
+                    $sql = "SELECT " . $this->config['datatable'] . ".* $add_select_sql FROM " . $this->config['datatable'] . " " . $join_sql . " WHERE $restrict $add_where_sql ORDER BY $orderfield $orderby " . $limit_sql . ";";
                 }
                 else {
                     if($this->config['order_with_subselect']) {
                         $sql = "SELECT * FROM (
-                              SELECT " . $this->config['datatable'] . ".* $add_select_sql FROM " . $this->config['datatable'] . " " . $join_sql . " WHERE $restrict $add_where_sql ORDER BY :orderfield
+                              SELECT " . $this->config['datatable'] . ".* $add_select_sql FROM " . $this->config['datatable'] . " " . $join_sql . " WHERE $restrict $add_where_sql ORDER BY $orderfield
                             ) AS " . $this->config['datatable'] . "
                             GROUP BY " . $this->config['datatable'] . "." . $this->config['idfield'] . "
-                            ORDER BY " . $this->config['orderfield_subselect'] . " :orderby " . $limit_sql . "
+                            ORDER BY " . $this->config['orderfield_subselect'] . " $orderby " . $limit_sql . "
                         ;";
                     }
                     else {
-                        $sql = "SELECT " . $this->config['datatable'] . ".* $add_select_sql FROM " . $this->config['datatable'] . " " . $join_sql . " WHERE $restrict $add_where_sql GROUP BY " . $this->config['datatable'] . "." . $this->config['idfield'] . " ORDER BY :orderfield :orderby " . $limit_sql . ";";
+                        $sql = "SELECT " . $this->config['datatable'] . ".* $add_select_sql FROM " . $this->config['datatable'] . " " . $join_sql . " WHERE $restrict $add_where_sql GROUP BY " . $this->config['datatable'] . "." . $this->config['idfield'] . " ORDER BY $orderfield $orderby " . $limit_sql . ";";
                     }
                 }
             }
