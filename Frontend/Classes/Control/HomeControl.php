@@ -20,10 +20,9 @@
                 'limit' => 1
             ));
             if(!isset($comments->errorCode)) {
-                foreach($comments AS $comment) {
-                    $comment->question = $this->getApi()->Call('Question', 'FindById', array('id'=>$comment->comment_question_id));
-                }
-                $this->view->assign('comments',$comments);
+                $comment = end($comments);
+                $comment->question = $this->getApi()->Call('Question', 'FindById', array('id'=>$comment->comment_question_id));
+                $this->view->assign('comment',$comment);
             }
 
             // Output

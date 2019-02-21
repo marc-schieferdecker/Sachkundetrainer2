@@ -105,12 +105,10 @@
                         <p>
                             Bei Fragen, wenden Sie sich per E-Mail an <a href="mailto:ms@letsshootshow.de">ms@letsshootshow.de</a>.
                         </p>
-                        <f:if condition="{comments}">
+                        <f:if condition="{comment}">
                             <h3>Der neuste Kommentar</h3>
-                            <f:for each="{comments}" as="comment">
-                                <p>zur Frage: <em><a href="/Frontend/?ctrl=Train&action=Topics&id={comment.question.question_id}">{comment.question.question_number} <u>{comment.question.question_text}</u></a></em></p>
-                                <f:render partial="Comment/comment" arguments="{comment:comment}"/>
-                            </f:for>
+                            <p>zur Frage: <em><a href="/Frontend/?ctrl=Train&action=Topics&id={comment.question.question_id}">{comment.question.question_number} <u>{comment.question.question_text}</u></a></em></p>
+                            <f:render partial="Comment/comment" arguments="{comment:comment}"/>
                         </f:if>
                         <h3>Wichtige Links</h3>
                         <ul>
