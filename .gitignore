@@ -1,7 +1,6 @@
 # .gitignore
 .DS_Store
 .idea
-Frontend/Resources/Public/videos/*.mp4
 Frontend/Configuration/keys.php
 Backend/Configuration/database.php
 Backend/Configuration/passwords.php
