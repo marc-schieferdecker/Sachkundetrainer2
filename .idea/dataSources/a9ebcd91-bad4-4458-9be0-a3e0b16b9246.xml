@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <dataSource name="sachkundetrainer2@localhost">
-  <database-model serializer="dbm" rdbms="MYSQL" format-version="4.8">
+  <database-model serializer="dbm" dbms="MYSQL" family-id="MYSQL" format-version="4.17">
     <root id="1">
       <ServerVersion>0.18.4.1</ServerVersion>
       <DefaultCasing>exact</DefaultCasing>
@@ -8,7 +8,6 @@
     <schema id="2" parent="1" name="information_schema"/>
     <schema id="3" parent="1" name="sachkundetrainer2">
       <Current>1</Current>
-      <Visible>1</Visible>
     </schema>
     <table id="4" parent="3" name="answere"/>
     <table id="5" parent="3" name="comment"/>
