@@ -9,7 +9,11 @@
       <case-sensitivity plain-identifiers="exact" quoted-identifiers="exact" />
       <secret-storage>master_key</secret-storage>
       <user-name>sachkundetrainer2</user-name>
-      <introspection-schemas>*:sachkundetrainer2</introspection-schemas>
+      <schema-mapping>
+        <introspection-scope>
+          <node kind="schema" qname="sachkundetrainer2" />
+        </introspection-scope>
+      </schema-mapping>
       <ssh-properties>
         <enabled>true</enabled>
         <proxy-host>vmd32817.contaboserver.net</proxy-host>
