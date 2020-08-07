@@ -1,4 +1,6 @@
 # .gitignore
-/.idea/
-/Frontend/Resources/Public/videos/*.mp4
+.idea/
+Frontend/Resources/Public/videos/*.mp4
+Backend/Configuration/database.php
+Backend/Configuration/passwords.php
 
