@@ -20,14 +20,14 @@
             }
 
             // Lost password (email set, password empty)
-            if($this->__getRequestVar('do') == 'passwordlost' && $this->__getRequestVar('email')) {
+            if($this->__getRequestVar('do') == 'passwordlost' && $this->__getRequestVar('email') && $this->__getRequestVar('s').is_numeric()) {
                 $result = $this->getApi()->Call('Api', 'RequestPasswordReset', array('email'=>$this->__getRequestVar('email')));
                 $this->view->assign('messagepasswordlost', 'Wenn unter dieser E-Mail Adresse ein Account gefunden wurde, wird eine E-Mail mit einem Link an Sie gesendet, mit dem Sie sich anmelden können, um Ihr Kennwort zu ändern. Bitte schauen Sie auch in Ihren Spam-Ordner.');
                 $this->view->assign('show', 'passwordlost');
             }
 
             // Create new account
-            if($this->__getRequestVar('do') == 'new') {
+            if($this->__getRequestVar('do') == 'new' && $this->__getRequestVar('s').is_numeric()) {
                 if($this->__getRequestVar('email') && $this->__getRequestVar('name') && $this->__getRequestVar('password')) {
                     if(mb_strlen($this->__getRequestVar('password')) >= 6) {
                         $api = $this->getApi();
@@ -61,7 +61,7 @@
             }
 
             // Try login
-            if($this->__getRequestVar('do') == 'login' && $this->__getRequestVar('email') && $this->__getRequestVar('password')) {
+            if($this->__getRequestVar('do') == 'login' && $this->__getRequestVar('email') && $this->__getRequestVar('password') && $this->__getRequestVar('s').is_numeric()) {
                 $result = $this->getApi()->Call('Api', 'FindByLogin', array(
                     'email' => $this->__getRequestVar('email'),
                     'password' => $this->__getRequestVar('password')
